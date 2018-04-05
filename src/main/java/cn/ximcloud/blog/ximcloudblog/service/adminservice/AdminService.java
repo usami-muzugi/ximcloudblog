@@ -55,18 +55,37 @@ public class AdminService {
     @Autowired
     private AdminInfoRepository adminInfoRepository;
 
+    /**
+     * findByUUID
+     * @param uuid
+     * @return
+     */
+    public Admin findByUUID(String uuid) {
+        Admin admin = null;
+        if ((admin = adminRepository.findAdminByUuid(uuid)) != null) {
+            return admin;
+        } else return null;
+    }
 
-    public boolean adminlogin(String admin, String password) {
+
+    /**
+     * 返回为用户实体，因为返回为boolean 还是要重新再查询一遍所以返回为admin
+     * @param admin
+     * @param password
+     * @return
+     */
+    public Admin adminlogin(String admin, String password) {
+        Admin indexAdmin = null;
         try {
             Integer id = Integer.valueOf(admin);
-            if (adminRepository.findAdminByIdAndPassword(id, password) == null) {
-                return false;
-            } else return true;
+            if ((indexAdmin=adminRepository.findAdminByIdAndPassword(id, password)) == null) {
+                return null;
+            } else return indexAdmin;
         } catch (NumberFormatException e) {
             //不是数字
-            if (adminRepository.findAdminByEmailAndPassword(admin, password) == null) {
-                return false;
-            } else return true;
+            if ((indexAdmin = adminRepository.findAdminByEmailAndPassword(admin, password)) == null) {
+                return null;
+            } else return indexAdmin;
         }
     }
 

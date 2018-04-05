@@ -1,8 +1,6 @@
 package cn.ximcloud.blog.ximcloudblog.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -45,6 +43,7 @@ public class Admin implements Serializable {
     private String email;
     private String password;
     private String lastLoginIP;
+
 
     public Admin() {
 
