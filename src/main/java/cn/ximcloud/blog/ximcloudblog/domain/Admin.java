@@ -38,36 +38,44 @@ import javax.persistence.Id;
 public class Admin {
     @Id
     @GeneratedValue
-    private String id;
-
+    private Integer id;
+    private Long uuid;
     private String email;
     private String password;
     private String lastLoginIP;
 
-    public Admin(){}
-
     @Override
     public String toString() {
         return "Admin{" +
-                "id='" + id + '\'' +
+                "id=" + id +
+                ", uuid=" + uuid +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", lastLoginIP='" + lastLoginIP + '\'' +
                 '}';
     }
 
-    public Admin(String email, String password, String lastLoginIP) {
+    public Admin(Long uuid, String email, String password, String lastLoginIP) {
+        this.uuid = uuid;
         this.email = email;
         this.password = password;
         this.lastLoginIP = lastLoginIP;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Long getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(Long uuid) {
+        this.uuid = uuid;
     }
 
     public String getEmail() {
