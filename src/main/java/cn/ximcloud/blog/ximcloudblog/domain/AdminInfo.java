@@ -38,7 +38,7 @@ import java.io.Serializable;
 public class AdminInfo implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer admin_id;
 
     private Long registerTime;

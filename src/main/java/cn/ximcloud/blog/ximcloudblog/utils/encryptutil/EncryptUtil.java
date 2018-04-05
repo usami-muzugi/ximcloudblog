@@ -1,13 +1,10 @@
-package cn.ximcloud.blog.ximcloudblog.utils;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+package cn.ximcloud.blog.ximcloudblog.utils.encryptutil;
 
 /**
  * Created by IntelliJ IDEA.
  * User: Wizard
  * Date: 2018-04-05
- * Time: 16:35
+ * Time: 23:12
  * ProjectName: ximcloudblog
  * To change this template use File | Settings | File Templates.
  * <p>
@@ -34,24 +31,6 @@ import java.util.regex.Pattern;
  * //         佛祖保佑          永无BUG     永不修改                  //
  * ////////////////////////////////////////////////////////////////////
  **/
-public class EmailUtil {
-    private EmailUtil(){}
+public class EncryptUtil {
 
-    /**
-     * 验证邮箱
-     * @param email
-     * @return
-     */
-    public static boolean checkEmail(String email){
-        boolean flag = false;
-        try{
-            String check = "^([a-z0-9A-Z]+[-|_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
-            Pattern regex = Pattern.compile(check);
-            Matcher matcher = regex.matcher(email);
-            flag = matcher.matches();
-        }catch(Exception e){
-            flag = false;
-        }
-        return flag;
-    }
 }

@@ -1,12 +1,13 @@
-package cn.ximcloud.blog.ximcloudblog.utils;
+package cn.ximcloud.blog.ximcloudblog.utils.email;
 
-import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by IntelliJ IDEA.
  * User: Wizard
  * Date: 2018-04-05
- * Time: 20:10
+ * Time: 16:35
  * ProjectName: ximcloudblog
  * To change this template use File | Settings | File Templates.
  * <p>
@@ -33,10 +34,24 @@ import java.util.UUID;
  * //         佛祖保佑          永无BUG     永不修改                  //
  * ////////////////////////////////////////////////////////////////////
  **/
-public class UuidUtil {
-    private UuidUtil(){}
+public class EmailUtil {
+    private EmailUtil(){}
 
-    public static String getUUID() {
-        return UUID.randomUUID().toString().replace("-","");
+    /**
+     * 验证邮箱
+     * @param email
+     * @return
+     */
+    public static boolean checkEmail(String email){
+        boolean flag = false;
+        try{
+            String check = "^([a-z0-9A-Z]+[-|_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
+            Pattern regex = Pattern.compile(check);
+            Matcher matcher = regex.matcher(email);
+            flag = matcher.matches();
+        }catch(Exception e){
+            flag = false;
+        }
+        return flag;
     }
 }

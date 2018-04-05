@@ -49,8 +49,6 @@ import java.util.List;
 public class AdminController {
 
     @Autowired
-    private AdminRepository adminRepository;
-    @Autowired
     private AdminService adminService;
 
 
@@ -114,7 +112,6 @@ public class AdminController {
 
     /**
      * 管理员登录
-     *
      * @param admin
      * @param password
      * @return
