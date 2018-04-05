@@ -1,9 +1,17 @@
 package cn.ximcloud.blog.ximcloudblog.service.adminservice;
 
+import cn.ximcloud.blog.ximcloudblog.Repository.AdminInfoRepository;
 import cn.ximcloud.blog.ximcloudblog.Repository.AdminRepository;
+import cn.ximcloud.blog.ximcloudblog.domain.Admin;
+import cn.ximcloud.blog.ximcloudblog.domain.AdminInfo;
 import cn.ximcloud.blog.ximcloudblog.utils.EmailUtil;
+import cn.ximcloud.blog.ximcloudblog.utils.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Date;
 
 /**
  * Created by IntelliJ IDEA.
@@ -35,31 +43,116 @@ import org.springframework.stereotype.Service;
  * //         佛祖保佑        永无BUG      永不修改                  //
  * ////////////////////////////////////////////////////////////////////
  **/
+
 @Service
 public class AdminService {
+
     private AdminService(){}
 
     @Autowired
-    private static AdminRepository adminRepository;
+    private AdminRepository adminRepository;
 
-    //可通过Email、id登录
-    public boolean isAdmin(String string, String password) {
+    @Autowired
+    private AdminInfoRepository adminInfoRepository;
+
+
+    public boolean adminlogin(String admin, String password) {
         try {
-            Integer adminId = Integer.valueOf(string);
-            if (adminRepository.findAdminById(adminId).getPassword().equals(password)) {
-                return true;
-            } else return false;
+            Integer id = Integer.valueOf(admin);
+            if (adminRepository.findAdminByIdAndPassword(id, password) == null) {
+                return false;
+            } else return true;
         } catch (NumberFormatException e) {
             //不是数字
-            if (EmailUtil.checkEmail(string)) { //Email Check
-                //是Email
-                if (adminRepository.findAdminByEmail(string).getPassword().equals(password)) {
-                    return true;
-                } else return false;
-            } else {
-                //不是Email
+            if (adminRepository.findAdminByEmailAndPassword(admin, password) == null) {
                 return false;
+            } else return true;
+        }
+    }
+
+
+    /**
+     * 创建用户
+     * @param register_email
+     * @param register_password
+     * @param register_password2
+     * @return
+     */
+    public String createAdmin(String register_email, String register_password, String register_password2) {
+        if (EmailUtil.checkEmail(register_email)) {
+            //是Email？
+            if (adminRepository.findAdminByEmail(register_email) != null) {
+                //找到了该邮箱存在
+                return "邮箱被占用！";
+            } else if (!register_password.equals(register_password2)) {
+                //两个密码相同？
+                return "两次密码不相同！";
+            } else if (register_password.length() < 6) {
+                return "密码需为6位字符以上!";
+            }
+
+            //用户设置
+            Admin admin = new Admin();
+            admin.setEmail(register_email);  //email
+            admin.setPassword(register_password); //password
+            admin.setUuid(UuidUtil.getUUID());  //uuid
+            adminRepository.save(admin);  //save
+
+            //BUG admin id =1,admininfo id =2 这种
+
+
+            //用户信息设置
+            AdminInfo adminInfo = new AdminInfo();
+//            adminInfo.setAdmin_id(adminRepository.findAdminByEmail(register_email).getId());  也不行
+            adminInfo.setAdminAccountAvailableStatus(true);  //availableStatues
+            adminInfo.setRegisterTime(new Date().getTime());  //时间戳
+            try {
+                adminInfo.setRegisterIP(InetAddress.getLocalHost().getHostAddress());
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            }
+            adminInfoRepository.save(adminInfo);
+            return null;  //创建成功
+
+//            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+//            String date = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+
+
+        } else return "邮箱格式不正确！";
+    }
+
+
+
+
+    /**
+     * 判断是否为已存在的用户 可通过邮箱和用户ID判断
+     * @param string
+     * @param password
+     * @return
+     */
+    public boolean isAdmin(String string, String password) {
+        if (string == null || string.equals("")) {
+            return false;
+        } else {
+            try {
+                //ID
+                Integer integer = Integer.valueOf(string);
+                try {
+                    if (adminRepository.findAdminById(integer) != null) {
+                        return true;
+                    } else return false;
+                } catch (NullPointerException e) {
+                    return false;
+                }
+            } catch (NumberFormatException e) {
+                //Email
+                if (EmailUtil.checkEmail(string)) {
+                    if (adminRepository.findAdminByEmail(string) == null) {
+                        return false;
+                    } else return true;
+                } else return false;
             }
         }
     }
+
 }

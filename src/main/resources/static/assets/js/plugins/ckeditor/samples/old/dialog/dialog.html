@@ -80,7 +80,7 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 				infoTab.add( {
 					type: 'text',
 					label: 'My Custom Field',
-					id: 'customField',
+					admin_id: 'customField',
 					'default': 'Sample!',
 					validate: function() {
 						if ( ( /\d/ ).test( this.getValue() ) )
@@ -100,17 +100,17 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 
 				// Add a new tab to the "Link" dialog.
 				dialogDefinition.addContents( {
-					id: 'customTab',
+					admin_id: 'customTab',
 					label: 'My Tab',
 					accessKey: 'M',
 					elements: [
 						{
-							id: 'myField1',
+							admin_id: 'myField1',
 							type: 'text',
 							label: 'My Text Field'
 						},
 						{
-							id: 'myField2',
+							admin_id: 'myField2',
 							type: 'text',
 							label: 'Another Text Field'
 						}
@@ -155,9 +155,9 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 		<li><strong>Creating a custom dialog window</strong> &ndash; "My Dialog" dialog window opened with the "My Dialog" toolbar button.</li>
 		<li><strong>Creating a custom button</strong> &ndash; Add button to open the dialog with "My Dialog" toolbar button.</li>
 	</ol>
-	<textarea cols="80" id="editor1" name="editor1" rows="10">&lt;p&gt;This is some &lt;strong&gt;sample text&lt;/strong&gt;. You are using &lt;a href="http://ckeditor.com/"&gt;CKEditor&lt;/a&gt;.&lt;/p&gt;</textarea>
+	<textarea cols="80" admin_id="editor1" name="editor1" rows="10">&lt;p&gt;This is some &lt;strong&gt;sample text&lt;/strong&gt;. You are using &lt;a href="http://ckeditor.com/"&gt;CKEditor&lt;/a&gt;.&lt;/p&gt;</textarea>
 	<script>
-		// Replace the <textarea id="editor1"> with an CKEditor instance.
+		// Replace the <textarea admin_id="editor1"> with an CKEditor instance.
 		CKEDITOR.replace( 'editor1', config );
 	</script>
 	<p>The below editor modify the dialog definition of the above added dialog using the <code>dialogDefinition</code> event:</p>
@@ -169,19 +169,19 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 		<li><strong>Setting default values for dialog window fields</strong> &ndash; Set default value of "Text Field" text field. </li>
 		<li><strong>Setup initial focus for dialog window</strong> &ndash; Put initial focus on "My Custom Field" text field. </li>
 	</ol>
-	<textarea cols="80" id="editor2" name="editor2" rows="10">&lt;p&gt;This is some &lt;strong&gt;sample text&lt;/strong&gt;. You are using &lt;a href="http://ckeditor.com/"&gt;CKEditor&lt;/a&gt;.&lt;/p&gt;</textarea>
+	<textarea cols="80" admin_id="editor2" name="editor2" rows="10">&lt;p&gt;This is some &lt;strong&gt;sample text&lt;/strong&gt;. You are using &lt;a href="http://ckeditor.com/"&gt;CKEditor&lt;/a&gt;.&lt;/p&gt;</textarea>
 	<script>
 
-		// Replace the <textarea id="editor1"> with an CKEditor instance.
+		// Replace the <textarea admin_id="editor1"> with an CKEditor instance.
 		CKEDITOR.replace( 'editor2', config );
 
 	</script>
-	<div id="footer">
+	<div admin_id="footer">
 		<hr>
 		<p>
 			CKEditor - The text editor for the Internet - <a class="samples" href="http://ckeditor.com/">http://ckeditor.com</a>
 		</p>
-		<p id="copy">
+		<p admin_id="copy">
 			Copyright &copy; 2003-2016, <a class="samples" href="http://cksource.com/">CKSource</a> - Frederico
 			Knabben. All rights reserved.
 		</p>

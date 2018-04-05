@@ -1,13 +1,12 @@
-package cn.ximcloud.blog.ximcloudblog.Repository;
+package cn.ximcloud.blog.ximcloudblog.utils;
 
-import cn.ximcloud.blog.ximcloudblog.domain.Admin;
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.UUID;
 
 /**
  * Created by IntelliJ IDEA.
  * User: Wizard
  * Date: 2018-04-05
- * Time: 16:31
+ * Time: 20:10
  * ProjectName: ximcloudblog
  * To change this template use File | Settings | File Templates.
  * <p>
@@ -34,15 +33,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * //         佛祖保佑          永无BUG     永不修改                  //
  * ////////////////////////////////////////////////////////////////////
  **/
+public class UuidUtil {
+    private UuidUtil(){}
 
-public interface AdminRepository extends JpaRepository<Admin, Integer> {
-
-    Admin findAdminByEmailAndPassword(String email, String password);
-
-    Admin findAdminByEmail(String email);
-
-    Admin findAdminById(Integer admin_id);
-
-    Admin findAdminByIdAndPassword(Integer id, String password);
-
+    public static String getUUID() {
+        return UUID.randomUUID().toString().replace("-","");
+    }
 }

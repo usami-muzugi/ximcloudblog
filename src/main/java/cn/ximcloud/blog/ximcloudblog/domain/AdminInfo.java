@@ -7,11 +7,12 @@ import java.io.Serializable;
 
 /**
  * Created by IntelliJ IDEA.
- * User: wizard
- * Date: 2018-04-03
- * Time: 15:40
+ * User: Wizard
+ * Date: 2018-04-05
+ * Time: 20:27
  * ProjectName: ximcloudblog
- * To change this template use File | Settings | Editor | File and Code Templates.
+ * To change this template use File | Settings | File Templates.
+ * <p>
  * ////////////////////////////////////////////////////////////////////
  * //                          _ooOoo_                               //
  * //                         o8888888o                              //
@@ -32,79 +33,86 @@ import java.io.Serializable;
  * //      ========`-.____`-.___\_____/___.-`____.-'========         //
  * //                           `=---='                              //
  * //      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        //
- * //         佛祖保佑        永无BUG      永不修改                  //
+ * //         佛祖保佑          永无BUG     永不修改                  //
  * ////////////////////////////////////////////////////////////////////
  **/
-
 @Entity
-public class Admin implements Serializable {
+public class AdminInfo implements Serializable {
+
     @Id
     @GeneratedValue
-    private Integer id;
-    private String uuid;
-    private String email;
-    private String password;
-    private String lastLoginIP;
+    private Integer admin_id;
 
-    public Admin() {
+    private Long registerTime;
 
+    private Long lastLoginTime;
+
+    private String loginIPArrayList;
+
+    private boolean adminAccountAvailableStatus;
+
+    private String registerIP;
+
+    public AdminInfo() {
     }
 
     @Override
     public String toString() {
-        return "Admin{" +
-                "id=" + id +
-                ", uuid='" + uuid + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", lastLoginIP='" + lastLoginIP + '\'' +
+        return "AdminInfo{" +
+                "admin_id=" + admin_id +
+                ", registerTime=" + registerTime +
+                ", lastLoginTime=" + lastLoginTime +
+                ", loginIPArrayList='" + loginIPArrayList + '\'' +
+                ", adminAccountAvailableStatus=" + adminAccountAvailableStatus +
+                ", registerIP='" + registerIP + '\'' +
                 '}';
     }
 
-    public Admin(String uuid, String email, String password, String lastLoginIP) {
-        this.uuid = uuid;
-        this.email = email;
-        this.password = password;
-        this.lastLoginIP = lastLoginIP;
+    public Integer getAdmin_id() {
+        return admin_id;
     }
 
-    public Integer getId() {
-        return id;
+    public void setAdmin_id(Integer admin_id) {
+        this.admin_id = admin_id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public Long getRegisterTime() {
+        return registerTime;
     }
 
-    public String getUuid() {
-        return uuid;
+    public void setRegisterTime(Long registerTime) {
+        this.registerTime = registerTime;
     }
 
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+    public Long getLastLoginTime() {
+        return lastLoginTime;
     }
 
-    public String getEmail() {
-        return email;
+    public void setLastLoginTime(Long lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getLoginIPArrayList() {
+        return loginIPArrayList;
     }
 
-    public String getPassword() {
-        return password;
+    public void setLoginIPArrayList(String loginIPArrayList) {
+        this.loginIPArrayList = loginIPArrayList;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public boolean isAdminAccountAvailableStatus() {
+        return adminAccountAvailableStatus;
     }
 
-    public String getLastLoginIP() {
-        return lastLoginIP;
+    public void setAdminAccountAvailableStatus(boolean adminAccountAvailableStatus) {
+        this.adminAccountAvailableStatus = adminAccountAvailableStatus;
     }
 
-    public void setLastLoginIP(String lastLoginIP) {
-        this.lastLoginIP = lastLoginIP;
+    public String getRegisterIP() {
+        return registerIP;
+    }
+
+    public void setRegisterIP(String registerIP) {
+        this.registerIP = registerIP;
     }
 }

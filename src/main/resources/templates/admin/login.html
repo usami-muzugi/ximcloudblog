@@ -16,7 +16,7 @@
                             <a href="base_pages_reminder.html">Forgot Password?</a>
                         </li>
                         <li>
-                            <a href="base_pages_register.html" data-toggle="tooltip" data-placement="left" title="New Account"><i class="si si-plus"></i></a>
+                            <a href="/admin/register" data-toggle="tooltip" data-placement="left" title="New Account"><i class="si si-plus"></i></a>
                         </li>
                     </ul>
                     <h3 class="block-title">Login</h3>
@@ -30,19 +30,30 @@
                     <!-- Login Form -->
                     <!-- jQuery Validation (.js-validation-login class is initialized in js/pages/base_pages_login.js) -->
                     <!-- For more examples you can check out https://github.com/jzaefferer/jquery-validation -->
-                    <form class="js-validation-login form-horizontal push-30-t push-50" action="base_pages_dashboard.html" method="post">
+                    <form class="js-validation-login form-horizontal push-30-t push-50" action="/admin/login" method="post">
+                        <div class="row" th:if="${msg} ne null">
+                            <div class="col-sm-6 col-lg-12">
+                                <!-- Warning Alert -->
+                                <div class="alert alert-warning alert-dismissable">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                    <h3 class="font-w300 push-15">Attention!</h3>
+                                    <p th:text="${msg}"></p>
+                                </div>
+                                <!-- END Warning Alert -->
+                            </div>
+                        </div>
                         <div class="form-group">
                             <div class="col-xs-12">
                                 <div class="form-material form-material-primary floating">
-                                    <input class="form-control" type="text" id="login-username" name="login-username">
-                                    <label for="login-username">Username</label>
+                                    <input class="form-control" type="text" id="login-username" name="admin">
+                                    <label for="login-username">Email or Id</label>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-xs-12">
                                 <div class="form-material form-material-primary floating">
-                                    <input class="form-control" type="password" id="login-password" name="login-password">
+                                    <input class="form-control" type="password" id="login-password" name="password">
                                     <label for="login-password">Password</label>
                                 </div>
                             </div>
@@ -50,7 +61,7 @@
                         <div class="form-group">
                             <div class="col-xs-12">
                                 <label class="css-input switch switch-sm switch-primary">
-                                    <input type="checkbox" id="login-remember-me" name="login-remember-me"><span></span> Remember Me?
+                                    <input type="checkbox" id="login-remember-me" name="login_remember_me"><span></span> Remember Me?
                                 </label>
                             </div>
                         </div>

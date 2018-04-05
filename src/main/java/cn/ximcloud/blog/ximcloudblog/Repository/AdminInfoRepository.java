@@ -1,10 +1,13 @@
-package cn.ximcloud.blog.ximcloudblog.utils;
+package cn.ximcloud.blog.ximcloudblog.Repository;
+
+import cn.ximcloud.blog.ximcloudblog.domain.AdminInfo;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * Created by IntelliJ IDEA.
  * User: Wizard
  * Date: 2018-04-05
- * Time: 16:28
+ * Time: 20:25
  * ProjectName: ximcloudblog
  * To change this template use File | Settings | File Templates.
  * <p>
@@ -31,5 +34,7 @@ package cn.ximcloud.blog.ximcloudblog.utils;
  * //         佛祖保佑          永无BUG     永不修改                  //
  * ////////////////////////////////////////////////////////////////////
  **/
-public class aaa {
+public interface AdminInfoRepository extends JpaRepository<AdminInfo, Integer> {
+
+
 }

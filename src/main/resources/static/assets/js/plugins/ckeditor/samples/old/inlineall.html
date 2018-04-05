@@ -22,7 +22,7 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 
 			// Customize editors for headers and tag list.
 			// These editors don't need features like smileys, templates, iframes etc.
-			if ( element.is( 'h1', 'h2', 'h3' ) || element.getAttribute( 'id' ) == 'taglist' ) {
+			if ( element.is( 'h1', 'h2', 'h3' ) || element.getAttribute( 'admin_id' ) == 'taglist' ) {
 				// Customize the editor configurations on "configLoaded" event,
 				// which is fired after the configuration file loading and
 				// execution. This makes it possible to change the
@@ -202,17 +202,17 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 		<p>Click inside of any element below to start editing.</p>
 	</div>
 </div>
-<div id="container">
-	<div id="header">
-		<div id="headerLeft">
-			<h2 id="sampleTitle" contenteditable="true">
+<div admin_id="container">
+	<div admin_id="header">
+		<div admin_id="headerLeft">
+			<h2 admin_id="sampleTitle" contenteditable="true">
 				CKEditor<br> Goes Inline!
 			</h2>
 			<h3 contenteditable="true">
 				Lorem ipsum dolor sit amet dolor duis blandit vestibulum faucibus a, tortor.
 			</h3>
 		</div>
-		<div id="headerRight">
+		<div admin_id="headerRight">
 			<div contenteditable="true">
 				<p>
 					Lorem ipsum dolor sit amet enim. Etiam ullamcorper. Suspendisse a pellentesque dui, non felis. Maecenas malesuada elit lectus felis, malesuada ultricies.
@@ -223,8 +223,8 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 			</div>
 		</div>
 	</div>
-	<div id="columns">
-		<div id="column1">
+	<div admin_id="columns">
+		<div admin_id="column1">
 			<div contenteditable="true">
 				<h3>
 					Fusce vitae porttitor
@@ -245,14 +245,14 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 				</blockquote>
 				<blockquote>
 					<p>
-						Libero nunc, rhoncus ante ipsum non ipsum. Nunc eleifend pede turpis id sollicitudin fringilla. Phasellus ultrices, velit ac arcu.
+						Libero nunc, rhoncus ante ipsum non ipsum. Nunc eleifend pede turpis admin_id sollicitudin fringilla. Phasellus ultrices, velit ac arcu.
 					</p>
 				</blockquote>
 				<p>Pellentesque nunc. Donec suscipit erat. Pellentesque habitant morbi tristique ullamcorper.</p>
 				<p><s>Mauris mattis feugiat lectus nec mauris. Nullam vitae ante.</s></p>
 			</div>
 		</div>
-		<div id="column2">
+		<div admin_id="column2">
 			<div contenteditable="true">
 				<h3>
 					Integer condimentum sit amet
@@ -260,8 +260,8 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 				<p>
 					<strong>Aenean nonummy a, mattis varius. Cras aliquet.</strong>
 					Praesent <a href="http://ckeditor.com/">magna non mattis ac, rhoncus nunc</a>, rhoncus eget, cursus pulvinar mollis.</p>
-				<p>Proin id nibh. Sed eu libero posuere sed, lectus. Phasellus dui gravida gravida feugiat mattis ac, felis.</p>
-				<p>Integer condimentum sit amet, tempor elit odio, a dolor non ante at sapien. Sed ac lectus. Nulla ligula quis eleifend mi, id leo velit pede cursus arcu id nulla ac lectus. Phasellus vestibulum. Nunc viverra enim quis diam.</p>
+				<p>Proin admin_id nibh. Sed eu libero posuere sed, lectus. Phasellus dui gravida gravida feugiat mattis ac, felis.</p>
+				<p>Integer condimentum sit amet, tempor elit odio, a dolor non ante at sapien. Sed ac lectus. Nulla ligula quis eleifend mi, admin_id leo velit pede cursus arcu admin_id nulla ac lectus. Phasellus vestibulum. Nunc viverra enim quis diam.</p>
 			</div>
 			<div contenteditable="true">
 				<h3>
@@ -272,7 +272,7 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 				<p>In hac habitasse platea dictumst. Praesent wisi accumsan sit amet nibh. Maecenas orci luctus a, lacinia quam sem, posuere commodo, odio condimentum tempor, pede semper risus. Suspendisse pede. In hac habitasse platea dictumst. Nam sed laoreet sit amet erat. Integer.</p>
 			</div>
 		</div>
-		<div id="column3">
+		<div admin_id="column3">
 			<div contenteditable="true">
 				<p>
 					<img src="assets/inlineall/logo.png" alt="CKEditor logo" style="float:left">
@@ -292,20 +292,20 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 			</div>
 		</div>
 	</div>
-	<div id="tagLine">
+	<div admin_id="tagLine">
 		Tags of this article:
-		<p id="taglist" contenteditable="true">
+		<p admin_id="taglist" contenteditable="true">
 			inline, editing, floating, CKEditor
 		</p>
 	</div>
 </div>
-<div id="footer">
+<div admin_id="footer">
 	<hr>
 	<p>
 		CKEditor - The text editor for the Internet - <a class="samples" href="http://ckeditor.com/">
 			http://ckeditor.com</a>
 	</p>
-	<p id="copy">
+	<p admin_id="copy">
 		Copyright &copy; 2003-2016, <a class="samples" href="http://cksource.com/">CKSource</a>
 		- Frederico Knabben. All rights reserved.
 	</p>
