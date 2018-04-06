@@ -51,6 +51,10 @@ public class AdminInfo implements Serializable {
 
     private String bio;
 
+    private String city;
+
+    private Integer age;
+
     private Long registerTime;
 
     private Long lastLoginTime;
@@ -65,12 +69,15 @@ public class AdminInfo implements Serializable {
     public AdminInfo() {
     }
 
-    public AdminInfo(String admin_icon, String firstName, String lastName, String admin_job, String bio, Long registerTime, Long lastLoginTime, String loginIPList, boolean adminAccountAvailableStatus, String registerIP) {
+
+    public AdminInfo(String admin_icon, String firstName, String lastName, String admin_job, String bio, String city, Integer age, Long registerTime, Long lastLoginTime, String loginIPList, boolean adminAccountAvailableStatus, String registerIP) {
         this.admin_icon = admin_icon;
         this.firstName = firstName;
         this.lastName = lastName;
         this.admin_job = admin_job;
         this.bio = bio;
+        this.city = city;
+        this.age = age;
         this.registerTime = registerTime;
         this.lastLoginTime = lastLoginTime;
         this.loginIPList = loginIPList;
@@ -87,6 +94,8 @@ public class AdminInfo implements Serializable {
                 ", lastName='" + lastName + '\'' +
                 ", admin_job='" + admin_job + '\'' +
                 ", bio='" + bio + '\'' +
+                ", city='" + city + '\'' +
+                ", age='" + age + '\'' +
                 ", registerTime=" + registerTime +
                 ", lastLoginTime=" + lastLoginTime +
                 ", loginIPList='" + loginIPList + '\'' +
@@ -95,12 +104,20 @@ public class AdminInfo implements Serializable {
                 '}';
     }
 
-    public String getBio() {
-        return bio;
+    public Integer getAdmin_id() {
+        return admin_id;
     }
 
-    public void setBio(String bio) {
-        this.bio = bio;
+    public void setAdmin_id(Integer admin_id) {
+        this.admin_id = admin_id;
+    }
+
+    public String getAdmin_icon() {
+        return admin_icon;
+    }
+
+    public void setAdmin_icon(String admin_icon) {
+        this.admin_icon = admin_icon;
     }
 
     public String getFirstName() {
@@ -127,20 +144,28 @@ public class AdminInfo implements Serializable {
         this.admin_job = admin_job;
     }
 
-    public String getAdmin_icon() {
-        return admin_icon;
+    public String getBio() {
+        return bio;
     }
 
-    public void setAdmin_icon(String admin_icon) {
-        this.admin_icon = admin_icon;
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 
-    public Integer getAdmin_id() {
-        return admin_id;
+    public String getCity() {
+        return city;
     }
 
-    public void setAdmin_id(Integer admin_id) {
-        this.admin_id = admin_id;
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     public Long getRegisterTime() {

@@ -1,15 +1,21 @@
 package cn.ximcloud.blog.ximcloudblog.service.adminservice;
 
-import cn.ximcloud.blog.ximcloudblog.Repository.AdminInfoRepository;
-import cn.ximcloud.blog.ximcloudblog.Repository.AdminRepository;
+import cn.ximcloud.blog.ximcloudblog.repository.AdminInfoRepository;
 import cn.ximcloud.blog.ximcloudblog.domain.Admin;
 import cn.ximcloud.blog.ximcloudblog.domain.AdminInfo;
+import cn.ximcloud.blog.ximcloudblog.repository.AdminRepository;
 import cn.ximcloud.blog.ximcloudblog.utils.UUID.UuidUtil;
 import cn.ximcloud.blog.ximcloudblog.utils.emailutil.EmailUtil;
 import cn.ximcloud.blog.ximcloudblog.utils.encryptutil.EncryptUtil;
+import cn.ximcloud.blog.ximcloudblog.utils.passwordutil.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.resource.HttpResource;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Date;
@@ -55,6 +61,64 @@ public class AdminService {
 
     @Autowired
     private AdminInfoRepository adminInfoRepository;
+
+    /** password Page
+     * @param httpSession
+     * @param profile_password
+     * @param profile_password_new
+     * @param profile_password_new_confirm
+     * @return
+     */
+    public ModelAndView adminProfilePasswordUpdate(HttpSession httpSession, HttpServletRequest httpServletRequest, String profile_password, String profile_password_new, String profile_password_new_confirm) {
+        ModelAndView modelAndView = new ModelAndView();
+        Admin admin = (Admin) httpSession.getAttribute("admin_session");
+        String string;
+        if ((string = PasswordUtil.passwordTest(profile_password_new, profile_password_new_confirm)) == null) {
+            if (PasswordUtil.compare(admin.getPassword(), EncryptUtil.md5Password(profile_password))) {
+                admin.setPassword(EncryptUtil.md5Password(profile_password_new));
+                adminRepository.save(admin);
+                httpServletRequest.getSession().setAttribute("admin_session", null);
+                modelAndView.setViewName("redirect:/admin/login");
+            } else {
+                modelAndView.addObject("msg", "当前密码不正确");
+            }
+            modelAndView.addObject("msg", "当前密码不正确");
+        } else {
+            modelAndView.addObject("msg", string);
+        }
+        return modelAndView;
+    }
+
+    /**
+     *  Personal Page
+     * @param httpSession httpSession
+     * @param profile_name profile_name
+     * @param profile_email profile_email
+     * @param profile_firstname profile_firstname
+     * @param profile_lastname profile_lastname
+     * @param profile_bio profile_bio
+     * @param profile_skills profile_skills
+     * @param profile_city profile_city
+     * @param profile_age profile_age
+     */
+    public void adminProfileUpdate(HttpSession httpSession,  String profile_name,
+                                    String profile_email,  String profile_firstname,
+                                    String profile_lastname, String profile_bio, String profile_skills, String profile_city, Integer profile_age) {
+        Admin admin = (Admin) httpSession.getAttribute("admin_session");
+        admin.setAdminName(profile_name);
+        admin.setEmail(profile_email);
+
+
+        AdminInfo adminInfo = adminInfoRepository.findById(admin.getId()).get();
+        adminInfo.setFirstName(profile_firstname);
+        adminInfo.setLastName(profile_lastname);
+        adminInfo.setBio(profile_bio);
+        adminInfo.setCity(profile_city);
+        adminInfo.setAge(profile_age);
+
+        adminRepository.save(admin);
+        adminInfoRepository.save(adminInfo);
+    }
 
 
     public void adminLoginEventUpdate(Integer id) {
@@ -130,13 +194,10 @@ public class AdminService {
             if (adminRepository.findAdminByEmail(register_email) != null) {
                 //找到了该邮箱存在
                 return "邮箱被占用！";
-            } else if (!register_password.equals(register_password2)) {
-                //两个密码相同？
-                return "两次密码不相同！";
-            }else if(register_password.equals("")){
-                return "密码不能为空字符！";
-            } else if (register_password.length() < 6) {
-                return "密码需为6位字符以上!";
+            }
+            String string;
+            if ((string = PasswordUtil.passwordTest(register_password, register_password2)) != null) {
+                return string;
             }
 
             //用户设置

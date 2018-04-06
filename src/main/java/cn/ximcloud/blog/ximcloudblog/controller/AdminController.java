@@ -1,7 +1,7 @@
 package cn.ximcloud.blog.ximcloudblog.controller;
 
-import cn.ximcloud.blog.ximcloudblog.Repository.AdminInfoRepository;
-import cn.ximcloud.blog.ximcloudblog.Repository.AdminRepository;
+import cn.ximcloud.blog.ximcloudblog.repository.AdminInfoRepository;
+import cn.ximcloud.blog.ximcloudblog.repository.AdminRepository;
 import cn.ximcloud.blog.ximcloudblog.domain.Admin;
 import cn.ximcloud.blog.ximcloudblog.domain.AdminInfo;
 import cn.ximcloud.blog.ximcloudblog.service.adminservice.AdminService;
@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -83,18 +81,34 @@ public class AdminController {
         }
         return modelAndView;
     }
-//
-//    /**
-//     * @return
-//     */
-//    @PostMapping("/profile_edit")
-//    public ModelAndView adminProfileUpdate(@RequestParam String profile_name, @RequestParam String profile_email, @RequestParam String profile_firstname, @RequestParam String profile_lastname) {
-//        ModelAndView modelAndView = new ModelAndView();
-//        adminService
-//        return modelAndView;
-//    }
-//
-//
+
+    /**
+     *
+     * @param httpSession httpSession
+     * @param profile_name profile_name
+     * @param profile_email profile_email
+     * @param profile_firstname profile_firstname
+     * @param profile_lastname profile_lastname
+     * @param profile_bio profile_bio
+     * @param profile_skills profile_skills
+     * @param profile_city profile_city
+     * @param profile_age profile_age
+     * @return ModelAndView
+     */
+    @PostMapping("/profile_edit")
+    public ModelAndView adminProfileUpdate(HttpSession httpSession, @RequestParam String profile_name,
+                                           @RequestParam String profile_email, @RequestParam String profile_firstname,
+                                           @RequestParam String profile_lastname,@RequestParam String profile_bio,@RequestParam(defaultValue = "off") String profile_skills,@RequestParam String profile_city,@RequestParam Integer profile_age) {
+        ModelAndView modelAndView = new ModelAndView();
+        //是否有session
+        if (httpSession.getAttribute("admin_session") != null) {
+            adminService.adminProfileUpdate(httpSession,profile_name,profile_email,profile_firstname,profile_lastname,profile_bio,profile_skills,profile_city,profile_age);
+            modelAndView.setViewName("/admin/profile_edit");
+        }
+        return modelAndView;
+    }
+
+
 //    /**
 //     *
 //     * @return
@@ -114,8 +128,8 @@ public class AdminController {
 //        ModelAndView modelAndView = new ModelAndView();
 //        return modelAndView;
 //    }
-//
-//
+
+
 
 
 
@@ -164,8 +178,8 @@ public class AdminController {
 
     /**
      *
-     * @param reminder_email
-     * @return
+     * @param reminder_email reminder_email
+     * @return return
      */
     @PostMapping("/reminder")
     public ModelAndView password(@RequestParam String reminder_email) {
@@ -194,7 +208,8 @@ public class AdminController {
 
     /**
      * 管理员注册页面
-     * @return
+     *
+     * @return ModelAndView
      */
     @GetMapping("/register")
     public ModelAndView adminRegister() {
@@ -301,14 +316,14 @@ public class AdminController {
     @PostMapping("/login")
     public ModelAndView dologin(HttpSession httpSession, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, @RequestParam String admin, @RequestParam String password, @RequestParam(defaultValue = "off") String login_remember_me) {
         ModelAndView modelAndView = new ModelAndView();
-        if (admin == null || admin.equals("") || password == null || password.equals("")) {
-            modelAndView.addObject("msg", "");
+        if (admin == null || admin.equals("")) {
+            modelAndView.addObject("msg", "用户名或ID不能为空!");
         } else {
             Admin indexadmin;
             if ((indexadmin = adminService.adminlogin(admin, password)) != null) {
                 //用户存在
                 if (login_remember_me.equals("on")) {
-                    //set Cookie
+                    //set Cookie  可以说是更新Cookie
                     CookieUtil.addCookie(httpServletResponse,"uuid",indexadmin.getUuid(),"/admin",60 * 60 * 24 * 7);
                 }else CookieUtil.addCookie(httpServletResponse,"uuid","","/admin",60 * 60 * 24 * 7);
 

@@ -1,4 +1,4 @@
-package cn.ximcloud.blog.ximcloudblog.Repository;
+package cn.ximcloud.blog.ximcloudblog.repository;
 
 import cn.ximcloud.blog.ximcloudblog.domain.Admin;
 import org.springframework.data.jpa.repository.JpaRepository;

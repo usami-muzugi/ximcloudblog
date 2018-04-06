@@ -106,6 +106,13 @@
                                     <div class="row items-push">
                                         <div class="col-sm-6 col-sm-offset-3 form-horizontal">
                                             <div class="form-group">
+                                                <div class="col-xs-6">
+                                                    <label>ID</label>
+                                                    <!--/*@thymesVar id="admin" type="cn.ximcloud.blog.ximcloudblog.domain.Admin"*/-->
+                                                    <div class="form-control-static font-w700" th:text="${admin.getId()}">Admin</div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
                                                 <div class="col-xs-12">
                                                     <label for="profile-email">User name</label>
                                                     <!--/*@thymesVar id="admin" type="cn.ximcloud.blog.ximcloudblog.domain.Admin"*/-->
@@ -134,20 +141,21 @@
                                             <div class="form-group">
                                                 <div class="col-xs-12">
                                                     <label for="profile-bio">Bio</label>
-                                                    <textarea class="form-control input-lg" id="profile-bio" name="profile_bio" rows="15" placeholder="Enter a few details about yourself..">Hi there, welcome to my profile! I'm a web designer and I love creating stuff that solve problems and make your life easier. Feel free to follow me to know more about me and my projects. Thanks for stopping by, wish you a great day!</textarea>
+                                                    <!--/*@thymesVar id="admin_info" type="cn.ximcloud.blog.ximcloudblog.domain.AdminInfo"*/-->
+                                                    <textarea class="form-control input-lg" id="profile-bio" name="profile_bio" rows="15" placeholder="Enter a few details about yourself.." th:text="${admin_info.getBio()}">Hi there, welcome to my profile! I'm a web designer and I love creating stuff that solve problems and make your life easier. Feel free to follow me to know more about me and my projects. Thanks for stopping by, wish you a great day!</textarea>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <div class="col-xs-12">
                                                     <label for="profile-skills">Skills</label>
-                                                    <select class="form-control" id="profile-skills" name="profile-skills" size="8" multiple="">
-                                                        <option value="1" selected>HTML</option>
-                                                        <option value="2" selected>CSS</option>
-                                                        <option value="3" selected>JavaScript</option>
+                                                        <select class="form-control" id="profile-skills" name="profile_skills" size="8" multiple="">
+                                                        <option value="1" >HTML</option>
+                                                        <option value="2" >CSS</option>
+                                                        <option value="3" >JavaScript</option>
                                                         <option value="4">PHP</option>
                                                         <option value="5">Ruby</option>
-                                                        <option value="6" selected>Photoshop</option>
-                                                        <option value="6" selected>Sketch</option>
+                                                        <option value="6" >Photoshop</option>
+                                                        <option value="6" >Sketch</option>
                                                         <option value="7">Illustrator</option>
                                                     </select>
                                                 </div>
@@ -155,21 +163,23 @@
                                             <div class="form-group">
                                                 <div class="col-sm-6">
                                                     <label for="profile-city">Where do you live?</label>
-                                                    <input class="form-control input-lg" type="text" id="profile-city" name="profile-city" placeholder="Enter your location..">
+                                                    <!--/*@thymesVar id="admin_info" type="cn.ximcloud.blog.ximcloudblog.domain.AdminInfo"*/-->
+                                                    <input class="form-control input-lg" type="text" id="profile-city" name="profile_city" placeholder="Enter your location.." th:value="${admin_info.getCity()}">
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <label for="profile-age">Age</label>
-                                                    <input class="form-control input-lg" type="text" id="profile-age" name="profile-age" placeholder="Enter your age..">
+                                                    <!--/*@thymesVar id="admin_info" type="cn.ximcloud.blog.ximcloudblog.domain.AdminInfo"*/-->
+                                                    <input class="form-control input-lg" type="text" id="profile-age" name="profile_age" placeholder="Enter your age.." th:value="${admin_info.getAge()}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-xs-12">Gender</label>
                                                 <div class="col-xs-12">
                                                     <label class="css-input css-radio css-radio-primary push-10-r">
-                                                        <input type="radio" name="profile-gender-group"><span></span> Female
+                                                        <input type="radio" name="profile_gender_group"><span></span> Female
                                                     </label>
                                                     <label class="css-input css-radio css-radio-primary">
-                                                        <input type="radio" name="profile-gender-group" checked><span></span> Male
+                                                        <input type="radio" name="profile_gender_group" checked><span></span> Male
                                                     </label>
                                                 </div>
                                             </div>
@@ -185,20 +195,20 @@
                                             <div class="form-group">
                                                 <div class="col-xs-12">
                                                     <label for="profile-password">Current Password</label>
-                                                    <input class="form-control input-lg" type="password" id="profile-password" name="profile-password">
+                                                    <input class="form-control input-lg" type="password" id="profile-password" name="profile_password">
                                                 </div>
                                             </div>
                                             <hr>
                                             <div class="form-group">
                                                 <div class="col-xs-12">
                                                     <label for="profile-password-new">New Password</label>
-                                                    <input class="form-control input-lg" type="password" id="profile-password-new" name="profile-password-new">
+                                                    <input class="form-control input-lg" type="password" id="profile-password-new" name="profile_password_new">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <div class="col-xs-12">
                                                     <label for="profile-password-new-confirm">Confirm New Password</label>
-                                                    <input class="form-control input-lg" type="password" id="profile-password-new-confirm" name="profile-password-new-confirm">
+                                                    <input class="form-control input-lg" type="password" id="profile-password-new-confirm" name="profile_password_new_confirm">
                                                 </div>
                                             </div>
                                         </div>
