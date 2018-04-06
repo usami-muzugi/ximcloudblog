@@ -906,12 +906,12 @@
                         <li class="divider"></li>
                         <li class="dropdown-header">Actions</li>
                         <li>
-                            <a tabindex="-1" href="base_pages_lock.html">
-                                <i class="si si-lock pull-right"></i>Lock Account
+                            <a tabindex="-1" href="changepassword">
+                                <i class="si si-lock pull-right"></i>Change password
                             </a>
                         </li>
                         <li>
-                            <a tabindex="-1" href="base_pages_login.html">
+                            <a tabindex="-1" href="logout">
                                 <i class="si si-logout pull-right"></i>Log out
                             </a>
                         </li>
@@ -972,7 +972,8 @@
         <div class="content bg-image overflow-hidden" style="background-image: url('../assets/img/photos/photo3@2x.jpg');">
             <div class="push-50-t push-15">
                 <h1 class="h2 text-white animated zoomIn">Dashboard</h1>
-                <h2 class="h5 text-white-op animated zoomIn">Welcome Administrator</h2>
+                <!--/*@thymesVar id="admin" type="cn.ximcloud.blog.ximcloudblog.domain.Admin"*/-->
+                <h2 class="h5 text-white-op animated zoomIn" th:text="'Welcome, '+${admin.getEmail()}"> </h2>
             </div>
         </div>
         <!-- END Page Header -->

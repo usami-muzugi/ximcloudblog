@@ -42,6 +42,7 @@ public class User {
     @GeneratedValue
     private Integer id;
     private String uuid;
+    private String username;
     private String email;
     private String password;
     private String lastLoginIP;
@@ -49,15 +50,33 @@ public class User {
     public User() {
     }
 
+
+    public User(String uuid, String username, String email, String password, String lastLoginIP) {
+        this.uuid = uuid;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.lastLoginIP = lastLoginIP;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", uuid=" + uuid +
+                ", uuid='" + uuid + '\'' +
+                ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", lastLoginIP='" + lastLoginIP + '\'' +
                 '}';
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Integer getId() {

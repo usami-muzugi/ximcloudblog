@@ -4,8 +4,9 @@ import cn.ximcloud.blog.ximcloudblog.Repository.AdminInfoRepository;
 import cn.ximcloud.blog.ximcloudblog.Repository.AdminRepository;
 import cn.ximcloud.blog.ximcloudblog.domain.Admin;
 import cn.ximcloud.blog.ximcloudblog.domain.AdminInfo;
-import cn.ximcloud.blog.ximcloudblog.utils.EmailUtil;
-import cn.ximcloud.blog.ximcloudblog.utils.UuidUtil;
+import cn.ximcloud.blog.ximcloudblog.utils.UUID.UuidUtil;
+import cn.ximcloud.blog.ximcloudblog.utils.email.EmailUtil;
+import cn.ximcloud.blog.ximcloudblog.utils.encryptutil.EncryptUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,6 +56,36 @@ public class AdminService {
     @Autowired
     private AdminInfoRepository adminInfoRepository;
 
+
+    public void adminLoginUpdate(Integer id) {
+        //admin update
+        Admin admin = adminRepository.findAdminById(id);
+        String string = null;
+        try {
+            string = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        admin.setLastLoginIP(string);
+
+        //admininfo update
+        Integer adminInfoId = admin.getId();
+        AdminInfo adminInfo = adminInfoRepository.findById(adminInfoId).get();
+        adminInfo.setLastLoginTime(new Date().getTime());
+        if (adminInfo.getLoginIPArrayList() == null || adminInfo.getLoginIPArrayList().equals("")) {
+            adminInfo.setLoginIPArrayList(string);
+        }else adminInfo.setLoginIPArrayList(adminInfo.getLoginIPArrayList() + "," + string);
+        adminInfoRepository.save(adminInfo);
+    }
+
+
+
+
+
+
+
+
+
     /**
      * findByUUID
      * @param uuid
@@ -69,6 +100,7 @@ public class AdminService {
 
 
     /**
+     * 用户登录
      * 返回为用户实体，因为返回为boolean 还是要重新再查询一遍所以返回为admin
      * @param admin
      * @param password
@@ -76,14 +108,16 @@ public class AdminService {
      */
     public Admin adminlogin(String admin, String password) {
         Admin indexAdmin = null;
+        //加密后的密码
+        String enc_password = EncryptUtil.md5Password(password);
         try {
             Integer id = Integer.valueOf(admin);
-            if ((indexAdmin=adminRepository.findAdminByIdAndPassword(id, password)) == null) {
+            if ((indexAdmin=adminRepository.findAdminByIdAndPassword(id, enc_password)) == null) {
                 return null;
             } else return indexAdmin;
         } catch (NumberFormatException e) {
             //不是数字
-            if ((indexAdmin = adminRepository.findAdminByEmailAndPassword(admin, password)) == null) {
+            if ((indexAdmin = adminRepository.findAdminByEmailAndPassword(admin, enc_password)) == null) {
                 return null;
             } else return indexAdmin;
         }
@@ -106,6 +140,8 @@ public class AdminService {
             } else if (!register_password.equals(register_password2)) {
                 //两个密码相同？
                 return "两次密码不相同！";
+            }else if(register_password.equals("")){
+                return "密码不能为空字符！";
             } else if (register_password.length() < 6) {
                 return "密码需为6位字符以上!";
             }
@@ -113,7 +149,7 @@ public class AdminService {
             //用户设置
             Admin admin = new Admin();
             admin.setEmail(register_email);  //email
-            admin.setPassword(register_password); //password
+            admin.setPassword(EncryptUtil.md5Password(register_password)); //password 密码加密
             admin.setUuid(UuidUtil.getUUID());  //uuid
             adminRepository.save(admin);  //save
 
@@ -140,16 +176,12 @@ public class AdminService {
         } else return "邮箱格式不正确！";
     }
 
-
-
-
     /**
      * 判断是否为已存在的用户 可通过邮箱和用户ID判断
      * @param string
-     * @param password
      * @return
      */
-    public boolean isAdmin(String string, String password) {
+    public boolean isAdmin(String string) {
         if (string == null || string.equals("")) {
             return false;
         } else {
@@ -173,5 +205,4 @@ public class AdminService {
             }
         }
     }
-
 }

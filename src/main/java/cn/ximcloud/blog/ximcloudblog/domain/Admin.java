@@ -40,6 +40,7 @@ public class Admin implements Serializable {
     @GeneratedValue
     private Integer id;
     private String uuid;
+    private String adminName;
     private String email;
     private String password;
     private String lastLoginIP;
@@ -49,22 +50,24 @@ public class Admin implements Serializable {
 
     }
 
+    public Admin(String uuid, String adminName, String email, String password, String lastLoginIP) {
+        this.uuid = uuid;
+        this.adminName = adminName;
+        this.email = email;
+        this.password = password;
+        this.lastLoginIP = lastLoginIP;
+    }
+
     @Override
     public String toString() {
         return "Admin{" +
                 "id=" + id +
                 ", uuid='" + uuid + '\'' +
+                ", adminName='" + adminName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", lastLoginIP='" + lastLoginIP + '\'' +
                 '}';
-    }
-
-    public Admin(String uuid, String email, String password, String lastLoginIP) {
-        this.uuid = uuid;
-        this.email = email;
-        this.password = password;
-        this.lastLoginIP = lastLoginIP;
     }
 
     public Integer getId() {
@@ -81,6 +84,14 @@ public class Admin implements Serializable {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    public String getAdminName() {
+        return adminName;
+    }
+
+    public void setAdminName(String adminName) {
+        this.adminName = adminName;
     }
 
     public String getEmail() {
