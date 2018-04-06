@@ -29,7 +29,7 @@ var BasePagesReminder = function() {
             },
             messages: {
                 'reminder-email': {
-                    required: 'Please enter a valid email address'
+                    required: 'Please enter a valid emailutil address'
                 }
             }
         });

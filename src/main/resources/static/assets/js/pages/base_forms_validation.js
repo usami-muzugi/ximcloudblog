@@ -90,7 +90,7 @@ var BaseFormValidation = function() {
                     required: 'Please enter a username',
                     minlength: 'Your username must consist of at least 3 characters'
                 },
-                'val-email': 'Please enter a valid email address',
+                'val-email': 'Please enter a valid emailutil address',
                 'val-password': {
                     required: 'Please provide a password',
                     minlength: 'Your password must be at least 5 characters long'
@@ -200,7 +200,7 @@ var BaseFormValidation = function() {
                     required: 'Please enter a username',
                     minlength: 'Your username must consist of at least 3 characters'
                 },
-                'val-email2': 'Please enter a valid email address',
+                'val-email2': 'Please enter a valid emailutil address',
                 'val-password2': {
                     required: 'Please provide a password',
                     minlength: 'Your password must be at least 5 characters long'

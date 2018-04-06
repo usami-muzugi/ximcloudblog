@@ -763,7 +763,7 @@ var modalDependant = function modalDependant() {
             if (emailRegex.test(email)) {
               resolve();
             } else {
-              reject('Invalid email address');
+              reject('Invalid emailutil address');
             }
           });
         };
@@ -1321,7 +1321,7 @@ var modalDependant = function modalDependant() {
         case null:
           break;
         default:
-          console.error('SweetAlert2: Unexpected type of input! Expected "text", "email", "password", "select", "checkbox", "textarea" or "file", got "' + params.input + '"');
+          console.error('SweetAlert2: Unexpected type of input! Expected "text", "emailutil", "password", "select", "checkbox", "textarea" or "file", got "' + params.input + '"');
           break;
       }
     })();

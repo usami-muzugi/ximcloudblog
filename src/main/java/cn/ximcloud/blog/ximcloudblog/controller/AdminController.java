@@ -1,7 +1,9 @@
 package cn.ximcloud.blog.ximcloudblog.controller;
 
+import cn.ximcloud.blog.ximcloudblog.Repository.AdminInfoRepository;
 import cn.ximcloud.blog.ximcloudblog.Repository.AdminRepository;
 import cn.ximcloud.blog.ximcloudblog.domain.Admin;
+import cn.ximcloud.blog.ximcloudblog.domain.AdminInfo;
 import cn.ximcloud.blog.ximcloudblog.service.adminservice.AdminService;
 import cn.ximcloud.blog.ximcloudblog.utils.cookieutil.CookieUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,12 +58,84 @@ public class AdminController {
     @Autowired
     AdminRepository adminRepository;
 
+    @Autowired
+    AdminInfoRepository adminInfoRepository;
+
+
+    @GetMapping("/profile_edit")
+    public ModelAndView adminProfileEdit(HttpSession httpSession) {
+        ModelAndView modelAndView = new ModelAndView();
+        if (httpSession.getAttribute("admin_session") != null) {
+            //有session
+            Admin admin = (Admin) httpSession.getAttribute("admin_session");
+            AdminInfo adminInfo = adminInfoRepository.findById(admin.getId()).get();
+            modelAndView.addObject("admin", admin);
+            modelAndView.addObject("admin_info", adminInfo);
+            modelAndView.setViewName("/admin/profile_edit");
+        } else {
+            modelAndView.setViewName("redirect:/admin/login");
+        }
+        return modelAndView;
+    }
+
+
+
+    /**
+     *
+     * @param httpSession
+     * @return
+     */
+    @GetMapping("/profile")
+    public ModelAndView adminProfile(HttpSession httpSession) {
+        ModelAndView modelAndView = new ModelAndView();
+        if (httpSession.getAttribute("admin_session") != null) {
+            //有session
+            Admin admin = (Admin) httpSession.getAttribute("admin_session");
+            AdminInfo adminInfo = adminInfoRepository.findById(admin.getId()).get();
+            modelAndView.addObject("admin", admin);
+            modelAndView.addObject("admin_info", adminInfo);
+            modelAndView.setViewName("/admin/profile");
+        } else {
+            modelAndView.setViewName("redirect:/admin/login");
+        }
+        return modelAndView;
+    }
+
+
+
+
+
+
+
+
+
+
+    /**
+     *
+     * @return
+     */
     @GetMapping("/reminder")
     public ModelAndView password() {
         ModelAndView modelAndView = new ModelAndView();
         return modelAndView;
     }
 
+    /**
+     *
+     * @param reminder_email
+     * @return
+     */
+    @PostMapping("/reminder")
+    public ModelAndView password(@RequestParam String reminder_email) {
+        ModelAndView modelAndView = new ModelAndView();
+        if (adminService.isAdmin(reminder_email)) {
+
+        } else {
+            modelAndView.addObject("msg", "该邮箱不存在");
+        }
+        System.out.println(reminder_email);
+        return modelAndView;
+    }
 
     /**
      * 登出
@@ -190,17 +264,16 @@ public class AdminController {
             //用户存在
             if (login_remember_me.equals("on")) {
                 //set Cookie
-                Cookie cookie = new Cookie("uuid", indexadmin.getUuid());
-                cookie.setMaxAge(60 * 60 * 24 * 7);
-                cookie.setPath("/admin");
-                httpServletResponse.addCookie(cookie);
-            }
+                CookieUtil.addCookie(httpServletResponse,"uuid",indexadmin.getUuid(),"/admin",60 * 60 * 24 * 7);
+            }else CookieUtil.addCookie(httpServletResponse,"uuid","","/admin",60 * 60 * 24 * 7);
+
             //update admin sysinfo
             adminService.adminLoginUpdate(indexadmin.getId());
 
             //set session
             httpSession.setAttribute("admin_session", indexadmin);
             modelAndView.setViewName("redirect:/admin/dashboard");
+
         } else {
             //密码错误
             modelAndView.addObject("msg", "密码错误或用户不存在!");

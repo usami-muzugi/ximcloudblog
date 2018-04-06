@@ -5,7 +5,7 @@ import cn.ximcloud.blog.ximcloudblog.Repository.AdminRepository;
 import cn.ximcloud.blog.ximcloudblog.domain.Admin;
 import cn.ximcloud.blog.ximcloudblog.domain.AdminInfo;
 import cn.ximcloud.blog.ximcloudblog.utils.UUID.UuidUtil;
-import cn.ximcloud.blog.ximcloudblog.utils.email.EmailUtil;
+import cn.ximcloud.blog.ximcloudblog.utils.emailutil.EmailUtil;
 import cn.ximcloud.blog.ximcloudblog.utils.encryptutil.EncryptUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -72,18 +72,11 @@ public class AdminService {
         Integer adminInfoId = admin.getId();
         AdminInfo adminInfo = adminInfoRepository.findById(adminInfoId).get();
         adminInfo.setLastLoginTime(new Date().getTime());
-        if (adminInfo.getLoginIPArrayList() == null || adminInfo.getLoginIPArrayList().equals("")) {
-            adminInfo.setLoginIPArrayList(string);
-        }else adminInfo.setLoginIPArrayList(adminInfo.getLoginIPArrayList() + "," + string);
+        if (adminInfo.getLoginIPList() == null || adminInfo.getLoginIPList().equals("")) {
+            adminInfo.setLoginIPList(string);
+        }else adminInfo.setLoginIPList(adminInfo.getLoginIPList() + "," + string);
         adminInfoRepository.save(adminInfo);
     }
-
-
-
-
-
-
-
 
 
     /**
@@ -148,7 +141,8 @@ public class AdminService {
 
             //用户设置
             Admin admin = new Admin();
-            admin.setEmail(register_email);  //email
+            admin.setAdminName(register_email);
+            admin.setEmail(register_email);  //emailutil
             admin.setPassword(EncryptUtil.md5Password(register_password)); //password 密码加密
             admin.setUuid(UuidUtil.getUUID());  //uuid
             adminRepository.save(admin);  //save

@@ -47,7 +47,7 @@ var BasePagesRegister = function() {
                     required: 'Please enter a username',
                     minlength: 'Your username must consist of at least 3 characters'
                 },
-                'register-email': 'Please enter a valid email address',
+                'register-email': 'Please enter a valid emailutil address',
                 'register-password': {
                     required: 'Please provide a password',
                     minlength: 'Your password must be at least 5 characters long'

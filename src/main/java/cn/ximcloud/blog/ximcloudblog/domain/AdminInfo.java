@@ -41,11 +41,16 @@ public class AdminInfo implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer admin_id;
 
+    private String admin_icon;
+
+    private String admin_job;
+
     private Long registerTime;
 
     private Long lastLoginTime;
 
-    private String loginIPArrayList;
+    @Column(columnDefinition = "longtext")
+    private String loginIPList;
 
     private boolean adminAccountAvailableStatus;
 
@@ -54,16 +59,44 @@ public class AdminInfo implements Serializable {
     public AdminInfo() {
     }
 
+    public AdminInfo(String admin_icon, String admin_job, Long registerTime, Long lastLoginTime, String loginIPList, boolean adminAccountAvailableStatus, String registerIP) {
+        this.admin_icon = admin_icon;
+        this.admin_job = admin_job;
+        this.registerTime = registerTime;
+        this.lastLoginTime = lastLoginTime;
+        this.loginIPList = loginIPList;
+        this.adminAccountAvailableStatus = adminAccountAvailableStatus;
+        this.registerIP = registerIP;
+    }
+
     @Override
     public String toString() {
         return "AdminInfo{" +
                 "admin_id=" + admin_id +
+                ", admin_icon='" + admin_icon + '\'' +
+                ", admin_job='" + admin_job + '\'' +
                 ", registerTime=" + registerTime +
                 ", lastLoginTime=" + lastLoginTime +
-                ", loginIPArrayList='" + loginIPArrayList + '\'' +
+                ", loginIPList='" + loginIPList + '\'' +
                 ", adminAccountAvailableStatus=" + adminAccountAvailableStatus +
                 ", registerIP='" + registerIP + '\'' +
                 '}';
+    }
+
+    public String getAdmin_job() {
+        return admin_job;
+    }
+
+    public void setAdmin_job(String admin_job) {
+        this.admin_job = admin_job;
+    }
+
+    public String getAdmin_icon() {
+        return admin_icon;
+    }
+
+    public void setAdmin_icon(String admin_icon) {
+        this.admin_icon = admin_icon;
     }
 
     public Integer getAdmin_id() {
@@ -90,12 +123,12 @@ public class AdminInfo implements Serializable {
         this.lastLoginTime = lastLoginTime;
     }
 
-    public String getLoginIPArrayList() {
-        return loginIPArrayList;
+    public String getLoginIPList() {
+        return loginIPList;
     }
 
-    public void setLoginIPArrayList(String loginIPArrayList) {
-        this.loginIPArrayList = loginIPArrayList;
+    public void setLoginIPList(String loginIPList) {
+        this.loginIPList = loginIPList;
     }
 
     public boolean isAdminAccountAvailableStatus() {

@@ -46,26 +46,23 @@ public class WebSiteConfig {
     private String webSiteDomain;
     private String webSiteInco;
     private Boolean webSiteSSL;
+    private String emailAccount;
+    private String emailPassword;
+    private String emailSMTPHost;
+    private String emailSMTPPort;
 
     public WebSiteConfig() {
     }
 
-    public WebSiteConfig(String webSiteName, String webSiteDomain, String webSiteInco, Boolean webSiteSSL) {
+    public WebSiteConfig(String webSiteName, String webSiteDomain, String webSiteInco, Boolean webSiteSSL, String emailAccount, String emailPassword, String emailSMTPHost, String emailSMTPPort) {
         this.webSiteName = webSiteName;
         this.webSiteDomain = webSiteDomain;
         this.webSiteInco = webSiteInco;
         this.webSiteSSL = webSiteSSL;
-    }
-
-    @Override
-    public String toString() {
-        return "WebSiteConfig{" +
-                "webSiteId=" + webSiteId +
-                ", webSiteName='" + webSiteName + '\'' +
-                ", webSiteDomain='" + webSiteDomain + '\'' +
-                ", webSiteInco='" + webSiteInco + '\'' +
-                ", webSiteSSL=" + webSiteSSL +
-                '}';
+        this.emailAccount = emailAccount;
+        this.emailPassword = emailPassword;
+        this.emailSMTPHost = emailSMTPHost;
+        this.emailSMTPPort = emailSMTPPort;
     }
 
     public Integer getWebSiteId() {
@@ -106,5 +103,52 @@ public class WebSiteConfig {
 
     public void setWebSiteSSL(Boolean webSiteSSL) {
         this.webSiteSSL = webSiteSSL;
+    }
+
+    public String getEmailAccount() {
+        return emailAccount;
+    }
+
+    public void setEmailAccount(String emailAccount) {
+        this.emailAccount = emailAccount;
+    }
+
+    public String getEmailPassword() {
+        return emailPassword;
+    }
+
+    public void setEmailPassword(String emailPassword) {
+        this.emailPassword = emailPassword;
+    }
+
+    public String getEmailSMTPHost() {
+        return emailSMTPHost;
+    }
+
+    public void setEmailSMTPHost(String emailSMTPHost) {
+        this.emailSMTPHost = emailSMTPHost;
+    }
+
+    public String getEmailSMTPPort() {
+        return emailSMTPPort;
+    }
+
+    public void setEmailSMTPPort(String emailSMTPPort) {
+        this.emailSMTPPort = emailSMTPPort;
+    }
+
+    @Override
+    public String toString() {
+        return "WebSiteConfig{" +
+                "webSiteId=" + webSiteId +
+                ", webSiteName='" + webSiteName + '\'' +
+                ", webSiteDomain='" + webSiteDomain + '\'' +
+                ", webSiteInco='" + webSiteInco + '\'' +
+                ", webSiteSSL=" + webSiteSSL +
+                ", emailAccount='" + emailAccount + '\'' +
+                ", emailPassword='" + emailPassword + '\'' +
+                ", emailSMTPHost='" + emailSMTPHost + '\'' +
+                ", emailSMTPPort='" + emailSMTPPort + '\'' +
+                '}';
     }
 }

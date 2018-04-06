@@ -1,4 +1,4 @@
-package cn.ximcloud.blog.ximcloudblog.utils.email;
+package cn.ximcloud.blog.ximcloudblog.utils.emailutil;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

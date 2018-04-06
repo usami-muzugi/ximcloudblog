@@ -109,7 +109,7 @@ var BaseFormWizard = function() {
                     required: 'Please enter a lastname',
                     minlength: 'Your lastname must consist of at least 2 characters'
                 },
-                'validation-classic-email': 'Please enter a valid email address',
+                'validation-classic-email': 'Please enter a valid emailutil address',
                 'validation-classic-details': 'Let us know a few thing about yourself',
                 'validation-classic-skills': 'Please select a skill!',
                 'validation-classic-terms': 'You must agree to the service terms!'
@@ -167,7 +167,7 @@ var BaseFormWizard = function() {
                     required: 'Please enter a lastname',
                     minlength: 'Your lastname must consist of at least 2 characters'
                 },
-                'validation-email': 'Please enter a valid email address',
+                'validation-email': 'Please enter a valid emailutil address',
                 'validation-details': 'Let us know a few thing about yourself',
                 'validation-skills': 'Please select a skill!',
                 'validation-terms': 'You must agree to the service terms!'
