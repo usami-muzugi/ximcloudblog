@@ -62,6 +62,12 @@ public class AdminController {
     AdminInfoRepository adminInfoRepository;
 
 
+    @GetMapping("/changepassword")
+    public ModelAndView adminPasswordChange() {
+        ModelAndView modelAndView = new ModelAndView();
+        return modelAndView;
+    }
+
     @GetMapping("/profile_edit")
     public ModelAndView adminProfileEdit(HttpSession httpSession) {
         ModelAndView modelAndView = new ModelAndView();
@@ -77,6 +83,50 @@ public class AdminController {
         }
         return modelAndView;
     }
+//
+//    /**
+//     * @return
+//     */
+//    @PostMapping("/profile_edit")
+//    public ModelAndView adminProfileUpdate(@RequestParam String profile_name, @RequestParam String profile_email, @RequestParam String profile_firstname, @RequestParam String profile_lastname) {
+//        ModelAndView modelAndView = new ModelAndView();
+//        adminService
+//        return modelAndView;
+//    }
+//
+//
+//    /**
+//     *
+//     * @return
+//     */
+//    @PostMapping("/profile_edit")
+//    public ModelAndView adminProfileUpdate() {
+//        ModelAndView modelAndView = new ModelAndView();
+//        return modelAndView;
+//    }
+//
+//    /**
+//     *
+//     * @return
+//     */
+//    @PostMapping("/profile_edit")
+//    public ModelAndView adminProfileUpdate() {
+//        ModelAndView modelAndView = new ModelAndView();
+//        return modelAndView;
+//    }
+//
+//
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -102,16 +152,8 @@ public class AdminController {
     }
 
 
-
-
-
-
-
-
-
-
     /**
-     *
+     * 忘记密码
      * @return
      */
     @GetMapping("/reminder")
@@ -259,28 +301,32 @@ public class AdminController {
     @PostMapping("/login")
     public ModelAndView dologin(HttpSession httpSession, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, @RequestParam String admin, @RequestParam String password, @RequestParam(defaultValue = "off") String login_remember_me) {
         ModelAndView modelAndView = new ModelAndView();
-        Admin indexadmin;
-        if ((indexadmin = adminService.adminlogin(admin, password)) != null) {
-            //用户存在
-            if (login_remember_me.equals("on")) {
-                //set Cookie
-                CookieUtil.addCookie(httpServletResponse,"uuid",indexadmin.getUuid(),"/admin",60 * 60 * 24 * 7);
-            }else CookieUtil.addCookie(httpServletResponse,"uuid","","/admin",60 * 60 * 24 * 7);
-
-            //update admin sysinfo
-            adminService.adminLoginUpdate(indexadmin.getId());
-
-            //set session
-            httpSession.setAttribute("admin_session", indexadmin);
-            modelAndView.setViewName("redirect:/admin/dashboard");
-
+        if (admin == null || admin.equals("") || password == null || password.equals("")) {
+            modelAndView.addObject("msg", "");
         } else {
-            //密码错误
-            modelAndView.addObject("msg", "密码错误或用户不存在!");
-            try {
-                modelAndView.addObject("email", adminService.findByUUID(CookieUtil.getCookieByName(httpServletRequest, "uuid").getValue()).getEmail());
-            } catch (NullPointerException e) {}
-            modelAndView.setViewName("/admin/login");
+            Admin indexadmin;
+            if ((indexadmin = adminService.adminlogin(admin, password)) != null) {
+                //用户存在
+                if (login_remember_me.equals("on")) {
+                    //set Cookie
+                    CookieUtil.addCookie(httpServletResponse,"uuid",indexadmin.getUuid(),"/admin",60 * 60 * 24 * 7);
+                }else CookieUtil.addCookie(httpServletResponse,"uuid","","/admin",60 * 60 * 24 * 7);
+
+                //update admin sysinfo
+                adminService.adminLoginEventUpdate(indexadmin.getId());
+
+                //set session
+                httpSession.setAttribute("admin_session", indexadmin);
+                modelAndView.setViewName("redirect:/admin/dashboard");
+
+            } else {
+                //密码错误
+                modelAndView.addObject("msg", "密码错误或用户不存在!");
+                try {
+                    modelAndView.addObject("email", adminService.findByUUID(CookieUtil.getCookieByName(httpServletRequest, "uuid").getValue()).getEmail());
+                } catch (NullPointerException e) {}
+                modelAndView.setViewName("/admin/login");
+            }
         }
         return modelAndView;
     }

@@ -57,7 +57,7 @@ public class AdminService {
     private AdminInfoRepository adminInfoRepository;
 
 
-    public void adminLoginUpdate(Integer id) {
+    public void adminLoginEventUpdate(Integer id) {
         //admin update
         Admin admin = adminRepository.findAdminById(id);
         String string = null;
@@ -155,6 +155,9 @@ public class AdminService {
 //            adminInfo.setAdmin_id(adminRepository.findAdminByEmail(register_email).getId());  也不行
             adminInfo.setAdminAccountAvailableStatus(true);  //availableStatues
             adminInfo.setRegisterTime(new Date().getTime());  //时间戳
+            adminInfo.setFirstName("XIMCloud");  //First name
+            adminInfo.setLastName("Administrator");   //Last name
+
             try {
                 adminInfo.setRegisterIP(InetAddress.getLocalHost().getHostAddress());
             } catch (UnknownHostException e) {

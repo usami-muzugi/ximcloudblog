@@ -43,7 +43,13 @@ public class AdminInfo implements Serializable {
 
     private String admin_icon;
 
+    private String firstName;
+
+    private String lastName;
+
     private String admin_job;
+
+    private String bio;
 
     private Long registerTime;
 
@@ -59,9 +65,12 @@ public class AdminInfo implements Serializable {
     public AdminInfo() {
     }
 
-    public AdminInfo(String admin_icon, String admin_job, Long registerTime, Long lastLoginTime, String loginIPList, boolean adminAccountAvailableStatus, String registerIP) {
+    public AdminInfo(String admin_icon, String firstName, String lastName, String admin_job, String bio, Long registerTime, Long lastLoginTime, String loginIPList, boolean adminAccountAvailableStatus, String registerIP) {
         this.admin_icon = admin_icon;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.admin_job = admin_job;
+        this.bio = bio;
         this.registerTime = registerTime;
         this.lastLoginTime = lastLoginTime;
         this.loginIPList = loginIPList;
@@ -74,13 +83,40 @@ public class AdminInfo implements Serializable {
         return "AdminInfo{" +
                 "admin_id=" + admin_id +
                 ", admin_icon='" + admin_icon + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", admin_job='" + admin_job + '\'' +
+                ", bio='" + bio + '\'' +
                 ", registerTime=" + registerTime +
                 ", lastLoginTime=" + lastLoginTime +
                 ", loginIPList='" + loginIPList + '\'' +
                 ", adminAccountAvailableStatus=" + adminAccountAvailableStatus +
                 ", registerIP='" + registerIP + '\'' +
                 '}';
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getAdmin_job() {
