@@ -69,47 +69,40 @@ public class AdminService {
      * @param profile_password_new_confirm
      * @return
      */
-    public ModelAndView adminProfilePasswordUpdate(HttpSession httpSession, HttpServletRequest httpServletRequest, String profile_password, String profile_password_new, String profile_password_new_confirm) {
-        ModelAndView modelAndView = new ModelAndView();
+    public String adminProfileUpdate(HttpSession httpSession, HttpServletRequest httpServletRequest, String profile_password, String profile_password_new, String profile_password_new_confirm) {
         Admin admin = (Admin) httpSession.getAttribute("admin_session");
         String string;
         if ((string = PasswordUtil.passwordTest(profile_password_new, profile_password_new_confirm)) == null) {
+            //通过passwordTest
             if (PasswordUtil.compare(admin.getPassword(), EncryptUtil.md5Password(profile_password))) {
                 admin.setPassword(EncryptUtil.md5Password(profile_password_new));
                 adminRepository.save(admin);
                 httpServletRequest.getSession().setAttribute("admin_session", null);
-                modelAndView.setViewName("redirect:/admin/login");
-            } else {
-                modelAndView.addObject("msg", "当前密码不正确");
-            }
-            modelAndView.addObject("msg", "当前密码不正确");
-        } else {
-            modelAndView.addObject("msg", string);
+            } else return "当前密码不正确！";
         }
-        return modelAndView;
+        return string;
     }
 
     /**
      *  Personal Page
      * @param httpSession httpSession
      * @param profile_name profile_name
-     * @param profile_email profile_email
      * @param profile_firstname profile_firstname
      * @param profile_lastname profile_lastname
      * @param profile_bio profile_bio
-     * @param profile_skills profile_skills
      * @param profile_city profile_city
      * @param profile_age profile_age
      */
-    public void adminProfileUpdate(HttpSession httpSession,  String profile_name,
-                                    String profile_email,  String profile_firstname,
-                                    String profile_lastname, String profile_bio, String profile_skills, String profile_city, Integer profile_age) {
+        public void adminProfileUpdate(HttpSession httpSession,  String profile_name,
+                String profile_job,  String profile_firstname,
+                                       String profile_lastname, String profile_bio, String profile_city, Integer profile_age) {
+        //admin set
         Admin admin = (Admin) httpSession.getAttribute("admin_session");
         admin.setAdminName(profile_name);
-        admin.setEmail(profile_email);
 
-
+        //adminInfo set
         AdminInfo adminInfo = adminInfoRepository.findById(admin.getId()).get();
+        adminInfo.setAdmin_job(profile_job);
         adminInfo.setFirstName(profile_firstname);
         adminInfo.setLastName(profile_lastname);
         adminInfo.setBio(profile_bio);
@@ -132,7 +125,7 @@ public class AdminService {
         }
         admin.setLastLoginIP(string);
 
-        //admininfo update
+        //adminInfo update
         Integer adminInfoId = admin.getId();
         AdminInfo adminInfo = adminInfoRepository.findById(adminInfoId).get();
         adminInfo.setLastLoginTime(new Date().getTime());
@@ -195,6 +188,7 @@ public class AdminService {
                 //找到了该邮箱存在
                 return "邮箱被占用！";
             }
+
             String string;
             if ((string = PasswordUtil.passwordTest(register_password, register_password2)) != null) {
                 return string;
@@ -209,6 +203,7 @@ public class AdminService {
             adminRepository.save(admin);  //save
 
             //BUG admin id =1,admininfo id =2 这种
+            //2018.4.7 这个问题莫名其妙解决了...
 
 
             //用户信息设置
@@ -216,8 +211,8 @@ public class AdminService {
 //            adminInfo.setAdmin_id(adminRepository.findAdminByEmail(register_email).getId());  也不行
             adminInfo.setAdminAccountAvailableStatus(true);  //availableStatues
             adminInfo.setRegisterTime(new Date().getTime());  //时间戳
-            adminInfo.setFirstName("XIMCloud");  //First name
-            adminInfo.setLastName("Administrator");   //Last name
+//            adminInfo.setFirstName("XIMCloud");  //First name
+//            adminInfo.setLastName("Administrator");   //Last name
 
             try {
                 adminInfo.setRegisterIP(InetAddress.getLocalHost().getHostAddress());
@@ -262,5 +257,17 @@ public class AdminService {
                 } else return false;
             }
         }
+    }
+
+    /**
+     *
+     * @param admin
+     * @return
+     */
+    public Integer adminIsNull(Admin admin) {
+        if (admin.getAdminName() == null || admin.getAdminName().equals("")) {
+            return 1;
+        }
+        return 0;
     }
 }

@@ -4,16 +4,21 @@ import cn.ximcloud.blog.ximcloudblog.repository.AdminInfoRepository;
 import cn.ximcloud.blog.ximcloudblog.repository.AdminRepository;
 import cn.ximcloud.blog.ximcloudblog.domain.Admin;
 import cn.ximcloud.blog.ximcloudblog.domain.AdminInfo;
+import cn.ximcloud.blog.ximcloudblog.service.adminservice.AdminInfoService;
 import cn.ximcloud.blog.ximcloudblog.service.adminservice.AdminService;
+import cn.ximcloud.blog.ximcloudblog.service.boxservice.BoxService;
 import cn.ximcloud.blog.ximcloudblog.utils.cookieutil.CookieUtil;
+import cn.ximcloud.blog.ximcloudblog.utils.fileutil.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import java.io.FileNotFoundException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -54,17 +59,17 @@ public class AdminController {
     private AdminService adminService;
 
     @Autowired
+    private AdminInfoService adminInfoService;
+
+    @Autowired
     AdminRepository adminRepository;
 
     @Autowired
     AdminInfoRepository adminInfoRepository;
 
+    @Autowired
+    BoxService boxService;
 
-    @GetMapping("/changepassword")
-    public ModelAndView adminPasswordChange() {
-        ModelAndView modelAndView = new ModelAndView();
-        return modelAndView;
-    }
 
     @GetMapping("/profile_edit")
     public ModelAndView adminProfileEdit(HttpSession httpSession) {
@@ -82,30 +87,34 @@ public class AdminController {
         return modelAndView;
     }
 
-    /**
-     *
-     * @param httpSession httpSession
-     * @param profile_name profile_name
-     * @param profile_email profile_email
-     * @param profile_firstname profile_firstname
-     * @param profile_lastname profile_lastname
-     * @param profile_bio profile_bio
-     * @param profile_skills profile_skills
-     * @param profile_city profile_city
-     * @param profile_age profile_age
-     * @return ModelAndView
-     */
-    @PostMapping("/profile_edit")
-    public ModelAndView adminProfileUpdate(HttpSession httpSession, @RequestParam String profile_name,
-                                           @RequestParam String profile_email, @RequestParam String profile_firstname,
-                                           @RequestParam String profile_lastname,@RequestParam String profile_bio,@RequestParam(defaultValue = "off") String profile_skills,@RequestParam String profile_city,@RequestParam Integer profile_age) {
+
+
+    @PostMapping("/profile_edit_test")
+    public void adminProfileUpdate(HttpServletRequest httpServletRequest,HttpSession httpSession,@RequestParam MultipartFile profile_icon) {
         ModelAndView modelAndView = new ModelAndView();
-        //是否有session
         if (httpSession.getAttribute("admin_session") != null) {
-            adminService.adminProfileUpdate(httpSession,profile_name,profile_email,profile_firstname,profile_lastname,profile_bio,profile_skills,profile_city,profile_age);
-            modelAndView.setViewName("/admin/profile_edit");
+            //有session
+            String fileName = profile_icon.getOriginalFilename();
+
+            String filePath = null;
+            try {
+                filePath = ResourceUtils.getURL("classpath:static/imgupdate/").toString();
+                filePath = filePath.replace("/target", "");
+                System.out.println(filePath);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            try {
+                FileUtil.uploadFile(profile_icon.getBytes(), filePath, fileName);
+            } catch (Exception e) {
+                // TODO: handle exception
+            }
+            //返回json
+            Admin admin = (Admin) httpSession.getAttribute("admin_session");
+            modelAndView.addObject("admin", admin);
+        } else {
+            modelAndView.setViewName("redirect:/admin/login");
         }
-        return modelAndView;
     }
 
 
@@ -156,6 +165,7 @@ public class AdminController {
             //有session
             Admin admin = (Admin) httpSession.getAttribute("admin_session");
             AdminInfo adminInfo = adminInfoRepository.findById(admin.getId()).get();
+
             modelAndView.addObject("admin", admin);
             modelAndView.addObject("admin_info", adminInfo);
             modelAndView.setViewName("/admin/profile");
@@ -186,10 +196,10 @@ public class AdminController {
         ModelAndView modelAndView = new ModelAndView();
         if (adminService.isAdmin(reminder_email)) {
 
+            modelAndView.addObject("msg", "一封重置密码的邮件已经发送给:"+reminder_email+"了！请前往邮箱查看!");
         } else {
-            modelAndView.addObject("msg", "该邮箱不存在");
+            modelAndView.addObject("msg", "该邮箱不存在！");
         }
-        System.out.println(reminder_email);
         return modelAndView;
     }
 
@@ -205,6 +215,7 @@ public class AdminController {
         modelAndView.setViewName("redirect:/admin/login");
         return modelAndView;
     }
+
 
     /**
      * 管理员注册页面
@@ -231,8 +242,12 @@ public class AdminController {
     @PostMapping("/register")
     public ModelAndView adminDoRegister(HttpServletResponse httpServletResponse, @RequestParam String register_email, @RequestParam String register_password, @RequestParam String register_password2, @RequestParam(defaultValue = "off") String register_terms) {
         ModelAndView modelAndView = new ModelAndView();
+
+        //同意条款
         if (register_terms.equals("on")) {
+            //查询下数据库，这个邮箱是否被占用
             String msg = adminService.createAdmin(register_email, register_password, register_password2);
+            //如果msg==null就没问题
             if (msg != null) {
                 //有问题
                 modelAndView.addObject("email", register_email);
@@ -240,12 +255,13 @@ public class AdminController {
             } else {
                 //没问题  cookie名 email -->//改为uuid
                 CookieUtil.addCookie(httpServletResponse,"uuid",adminRepository.findAdminByEmail(register_email).getUuid(),"/admin",60*60*24*7);
+                //添加一个checked cookie
+                CookieUtil.addCookie(httpServletResponse,"checked","checked","/admin",60*60*24*7);
                 modelAndView.setViewName("redirect:/admin/login");
             }
-            return modelAndView;
         } else {
             modelAndView.addObject("email", register_email);
-            modelAndView.addObject("msg", "需要同意用户条款");
+            modelAndView.addObject("msg", "需要同意用户条款!");
         }
         return modelAndView;
     }
@@ -286,22 +302,25 @@ public class AdminController {
         if (httpSession.getAttribute("admin_session") != null) {
             //有
             Admin admin = (Admin) httpSession.getAttribute("admin_session");
-            modelAndView.addObject("admin", admin);
             modelAndView.setViewName("redirect:/admin/dashboard");
+            modelAndView.addObject("admin", admin);
         } else {
-            //没有，看看有没有cookie
+            //没有session，看看有没有cookie
             try {
-                String string;
-                if ((string = CookieUtil.getCookieByName(httpServletRequest, "uuid").getValue()) != null) {
-                    //有
-                    modelAndView.addObject("email", adminService.findByUUID(string).getEmail());
-                    modelAndView.setViewName("/admin/login");
-                }
+                if (CookieUtil.getCookieByName(httpServletRequest, "checked").getValue().equals("checked")) {
+                    //checked
+                    modelAndView.addObject("checked", "checked");
+                    String string;
+                    if ((string = CookieUtil.getCookieByName(httpServletRequest, "uuid").getValue()) != null) {
+                        //有
+                        modelAndView.addObject("email", adminService.findByUUID(string).getEmail());
+                    }
+                }else modelAndView.addObject("checked", "");
+                modelAndView.setViewName("/admin/login");
             } catch (NullPointerException e) {
-                //没有值
+                //没有cookie
                 modelAndView.setViewName("/admin/login");
             }
-
         }
         return modelAndView;
     }
@@ -309,37 +328,40 @@ public class AdminController {
     /**
      * 管理员登录
      *
-     * @param admin
-     * @param password
-     * @return
+     * @param admin email or id
+     * @param password password
+     * @return  ModelAndView
      */
     @PostMapping("/login")
     public ModelAndView dologin(HttpSession httpSession, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, @RequestParam String admin, @RequestParam String password, @RequestParam(defaultValue = "off") String login_remember_me) {
         ModelAndView modelAndView = new ModelAndView();
+
+        if (login_remember_me.equals("on")) {
+            //set Cookie  可以说是更新Cookie
+            CookieUtil.addCookie(httpServletResponse, "checked", "checked", "/admin", 60 * 60 * 24 * 7);
+            modelAndView.addObject("checked", "checked");
+        }else CookieUtil.addCookie(httpServletResponse, "checked", "unchecked", "/admin", 60 * 60 * 24 * 7);
+
         if (admin == null || admin.equals("")) {
+            modelAndView.setViewName("/admin/login");
             modelAndView.addObject("msg", "用户名或ID不能为空!");
         } else {
             Admin indexadmin;
             if ((indexadmin = adminService.adminlogin(admin, password)) != null) {
-                //用户存在
+                //用户存在且密码正确
                 if (login_remember_me.equals("on")) {
                     //set Cookie  可以说是更新Cookie
-                    CookieUtil.addCookie(httpServletResponse,"uuid",indexadmin.getUuid(),"/admin",60 * 60 * 24 * 7);
-                }else CookieUtil.addCookie(httpServletResponse,"uuid","","/admin",60 * 60 * 24 * 7);
-
+                    CookieUtil.addCookie(httpServletResponse, "uuid", indexadmin.getUuid(), "/admin", 60 * 60 * 24 * 7);
+                }
                 //update admin sysinfo
                 adminService.adminLoginEventUpdate(indexadmin.getId());
-
                 //set session
                 httpSession.setAttribute("admin_session", indexadmin);
                 modelAndView.setViewName("redirect:/admin/dashboard");
-
+                modelAndView.addObject("admin", admin);
             } else {
-                //密码错误
                 modelAndView.addObject("msg", "密码错误或用户不存在!");
-                try {
-                    modelAndView.addObject("email", adminService.findByUUID(CookieUtil.getCookieByName(httpServletRequest, "uuid").getValue()).getEmail());
-                } catch (NullPointerException e) {}
+                modelAndView.addObject("email", admin);
                 modelAndView.setViewName("/admin/login");
             }
         }
@@ -357,10 +379,15 @@ public class AdminController {
         if (httpSession.getAttribute("admin_session") != null) {
             Admin admin = (Admin) httpSession.getAttribute("admin_session");
             modelAndView.addObject("admin", admin);
+
+            AdminInfo adminInfo = adminInfoRepository.findById(admin.getId()).get();
+
+            modelAndView.addObject("inbox", 2);
+            modelAndView.addObject("profilesettings", boxService.getRrofileSettingsBox(admin,adminInfo));
             modelAndView.setViewName("/admin/dashboard");
-        }else
+        } else {
             modelAndView.setViewName("redirect:/admin/login");
+        }
         return modelAndView;
     }
-
 }

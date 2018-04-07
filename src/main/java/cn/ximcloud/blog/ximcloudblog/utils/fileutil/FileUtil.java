@@ -1,17 +1,13 @@
-package cn.ximcloud.blog.ximcloudblog.service.mailservice;
-import org.springframework.stereotype.Service;
+package cn.ximcloud.blog.ximcloudblog.utils.fileutil;
 
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import java.util.Date;
-import java.util.Properties;
+import java.io.File;
+import java.io.FileOutputStream;
+
 /**
  * Created by IntelliJ IDEA.
  * User: Wizard
- * Date: 2018-04-06
- * Time: 17:16
+ * Date: 2018-04-07
+ * Time: 20:37
  * ProjectName: ximcloudblog
  * To change this template use File | Settings | File Templates.
  * <p>
@@ -38,7 +34,17 @@ import java.util.Properties;
  * //         佛祖保佑          永无BUG     永不修改                  //
  * ////////////////////////////////////////////////////////////////////
  **/
-@Service
-public class MailService {
+public class FileUtil {
+    private FileUtil(){}
 
+    public static void uploadFile(byte[] file, String filePath, String fileName) throws Exception {
+        File targetFile = new File(filePath);
+        if(!targetFile.exists()){
+            targetFile.mkdirs();
+        }
+        FileOutputStream out = new FileOutputStream(filePath+fileName);
+        out.write(file);
+        out.flush();
+        out.close();
+    }
 }

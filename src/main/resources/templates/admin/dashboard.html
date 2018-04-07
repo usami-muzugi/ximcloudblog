@@ -40,8 +40,13 @@
 
     <!-- Sidebar -->
     <nav th:include="/admin/dashboard_sidebar :: nav" th:id="sidebar"></nav>
+    <!-- END Sidebar -->
 
-    <header id="header-navbar" class="content-mini content-mini-full" th:include="/admin/dashboard_header :: header"></header>
+    <!-- Header -->
+    <!--/*@thymesVar id="profilesettings" type="cn.ximcloud.blog.ximcloudblog.controller.AdminController"*/-->
+    <header id="header-navbar" class="content-mini content-mini-full" th:include="/admin/dashboard_header :: header(${1},${profilesettings})"></header>
+    <!-- END Header -->
+
 
     <!-- Main Container -->
     <main id="main-container">
@@ -50,7 +55,7 @@
             <div class="push-50-t push-15">
                 <h1 class="h2 text-white animated zoomIn" th:text="Dashboard"></h1>
                 <!--/*@thymesVar id="admin" type="cn.ximcloud.blog.ximcloudblog.domain.Admin"*/-->
-                <h2 class="h5 text-white-op animated zoomIn" th:text="'Welcome, '+${admin.getEmail()}"> </h2>
+                <h2 class="h5 text-white-op animated zoomIn" th:text="'Welcome, '+${admin.getAdminName()}"> </h2>
             </div>
         </div>
         <!-- END Page Header -->

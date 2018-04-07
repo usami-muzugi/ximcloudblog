@@ -2,7 +2,7 @@
 <!--[if IE 9]>         <html class="ie9 no-focus" lang="en" xmlns:th="http://www.thymeleaf.org"> <![endif]-->
 <!--[if gt IE 9]><!--> <html class="no-focus" lang="en" xmlns:th="http://www.thymeleaf.org"> <!--<![endif]-->
 <!-- Header -->
-<header id="header-navbar" class="content-mini content-mini-full" th:fragment="header">
+<header id="header-navbar" class="content-mini content-mini-full" th:fragment="header(inbox,profilesettings)">
     <!-- Header Navigation Right -->
     <ul class="nav-header pull-right">
         <li>
@@ -15,19 +15,19 @@
                     <li class="dropdown-header">Profile</li>
                     <li>
                         <a tabindex="-1" href="/admin/profile">
-                            <i class="si si-user pull-right"></i>
-                            <span class="badge badge-success pull-right">1</span>Profile
+                            <i class="si si-user pull-right"></i>Profile
                         </a>
                     </li>
                     <li>
                         <a tabindex="-1" href="/admin/inbox">
                             <i class="si si-envelope-open pull-right"></i>
-                            <span class="badge badge-primary pull-right">3</span>Inbox
+                            <span class="badge badge-primary pull-right" th:text="${inbox}">3</span>Inbox
                         </a>
                     </li>
                     <li>
                         <a tabindex="-1" href="/admin/profile_edit">
-                            <i class="si si-settings pull-right"></i>ProfileSettings
+                            <i class="si si-settings pull-right"></i>
+                            <span class="badge badge-warning pull-right" th:text="${profilesettings}">3</span>ProfileSettings
                         </a>
                     </li>
                     <li class="divider"></li>

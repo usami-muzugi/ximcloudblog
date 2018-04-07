@@ -30,9 +30,12 @@
 
             <!-- Sidebar -->
             <nav th:include="/admin/dashboard_sidebar :: nav" th:id="sidebar"></nav>
+            <!-- END Sidebar-->
+
 
             <!-- Header -->
-            <header id="header-navbar" class="content-mini content-mini-full" th:include="/admin/dashboard_header :: header"></header>
+            <!--/*@thymesVar id="profilesettings" type="cn.ximcloud.blog.ximcloudblog.controller.AdminController"*/-->
+            <header id="header-navbar" class="content-mini content-mini-full" th:include="/admin/dashboard_header :: header(${1},${profilesettings})"></header>
             <!-- END Header -->
 
             <!-- Main Container -->
@@ -48,8 +51,10 @@
                                     <img class="img-avatar img-avatar96 img-avatar-thumb" th:src="@{/assets/img/avatars/avatar10.jpg}" alt="">
                                 </div>
                                 <div class="push-30 animated fadeInUp">
-                                    <h2 class="h4 font-w600 text-white push-5">Ronald George</h2>
-                                    <h3 class="h5 text-white-op">Web Designer</h3>
+                                    <!--/*@thymesVar id="admin" type="cn.ximcloud.blog.ximcloudblog.domain.Admin"*/-->
+                                    <h2 class="h4 font-w600 text-white push-5" th:text="${admin.getAdminName()}">Ronald George</h2>
+                                    <!--/*@thymesVar id="admin_info" type="cn.ximcloud.blog.ximcloudblog.domain.AdminInfo"*/-->
+                                    <h3 class="h5 text-white-op" th:text="${admin_info.getAdmin_job()}">Web Designer</h3>
                                 </div>
                             </div>
                         </div>
@@ -87,7 +92,7 @@
                     <!-- END User Header -->
 
                     <!-- Main Content onsubmit="return false;"-->
-                    <form action="/admin/profile_edit" method="post">
+                    <form action="/admin/profile_edit_test" method="post" enctype="multipart/form-data">
                         <div class="block">
                             <ul class="nav nav-tabs nav-justified push-20" data-toggle="tabs">
                                 <li class="active">
@@ -113,17 +118,30 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
+                                                <div class="col-xs-6">
+                                                    <label>Email Address</label>
+                                                    <!--/*@thymesVar id="admin" type="cn.ximcloud.blog.ximcloudblog.domain.Admin"*/-->
+                                                    <div class="form-control-static font-w700" th:text="${admin.getEmail()}">Admin</div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
                                                 <div class="col-xs-12">
-                                                    <label for="profile-email">User name</label>
+                                                    <label for="profile-icon">头像</label>
+                                                    <input class="form-control input-lg" type="file" id="profile-icon" name="profile_icon" accept="image/gif, image/jpeg , image/png">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-xs-12">
+                                                    <label for="profile-name">Admin name</label>
                                                     <!--/*@thymesVar id="admin" type="cn.ximcloud.blog.ximcloudblog.domain.Admin"*/-->
                                                     <input class="form-control input-lg" type="text" id="profile-name" name="profile_name" placeholder="Enter your name" th:value="${admin.getAdminName()}" value="usamimizugi">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <div class="col-xs-12">
-                                                    <label for="profile-email">Email Address</label>
-                                                    <!--/*@thymesVar id="admin" type="cn.ximcloud.blog.ximcloudblog.domain.Admin"*/-->
-                                                    <input class="form-control input-lg" type="email" id="profile-email" name="profile_email" placeholder="Enter your email.." th:value="${admin.getEmail()}" value="admin@example.com">
+                                                    <label for="profile-job">Job</label>
+                                                    <!--/*@thymesVar id="admin_info" type="cn.ximcloud.blog.ximcloudblog.domain.AdminInfo"*/-->
+                                                    <input class="form-control input-lg" type="text" id="profile-job" name="profile_job" placeholder="Enter your Job" th:value="${admin_info.getAdmin_job()}" value="sb">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -143,21 +161,6 @@
                                                     <label for="profile-bio">Bio</label>
                                                     <!--/*@thymesVar id="admin_info" type="cn.ximcloud.blog.ximcloudblog.domain.AdminInfo"*/-->
                                                     <textarea class="form-control input-lg" id="profile-bio" name="profile_bio" rows="15" placeholder="Enter a few details about yourself.." th:text="${admin_info.getBio()}">Hi there, welcome to my profile! I'm a web designer and I love creating stuff that solve problems and make your life easier. Feel free to follow me to know more about me and my projects. Thanks for stopping by, wish you a great day!</textarea>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-xs-12">
-                                                    <label for="profile-skills">Skills</label>
-                                                        <select class="form-control" id="profile-skills" name="profile_skills" size="8" multiple="">
-                                                        <option value="1" >HTML</option>
-                                                        <option value="2" >CSS</option>
-                                                        <option value="3" >JavaScript</option>
-                                                        <option value="4">PHP</option>
-                                                        <option value="5">Ruby</option>
-                                                        <option value="6" >Photoshop</option>
-                                                        <option value="6" >Sketch</option>
-                                                        <option value="7">Illustrator</option>
-                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -227,7 +230,7 @@
                                                 </div>
                                                 <div class="col-xs-4 text-right">
                                                     <label class="css-input switch switch-sm switch-primary push-10-t">
-                                                        <input type="checkbox"><span></span>
+                                                        <input type="checkbox" name="online_status"><span></span>
                                                     </label>
                                                 </div>
                                             </div>
@@ -263,7 +266,7 @@
                                                 </div>
                                                 <div class="col-sm-4 text-right">
                                                     <label class="css-input switch switch-sm switch-primary push-10-t">
-                                                        <input type="checkbox" checked><span></span>
+                                                        <input type="checkbox" ><span></span>
                                                     </label>
                                                 </div>
                                             </div>

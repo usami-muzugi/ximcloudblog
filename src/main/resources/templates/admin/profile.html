@@ -30,9 +30,11 @@
 
             <!-- Sidebar -->
             <nav th:include="/admin/dashboard_sidebar :: nav" th:id="sidebar"></nav>
+            <!-- END Sidebar -->
 
             <!-- Header -->
-            <header id="header-navbar" class="content-mini content-mini-full" th:include="/admin/dashboard_header :: header"></header>
+            <!--/*@thymesVar id="profilesettings" type="cn.ximcloud.blog.ximcloudblog.controller.AdminController"*/-->
+            <header id="header-navbar" class="content-mini content-mini-full" th:include="/admin/dashboard_header :: header(${1},${profilesettings})"></header>
             <!-- END Header -->
 
             <!-- Main Container -->

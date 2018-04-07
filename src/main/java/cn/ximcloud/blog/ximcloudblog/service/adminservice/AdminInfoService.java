@@ -1,17 +1,15 @@
-package cn.ximcloud.blog.ximcloudblog.service.mailservice;
+package cn.ximcloud.blog.ximcloudblog.service.adminservice;
+
+import cn.ximcloud.blog.ximcloudblog.domain.AdminInfo;
 import org.springframework.stereotype.Service;
 
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import java.util.Date;
-import java.util.Properties;
+import java.lang.reflect.Field;
+
 /**
  * Created by IntelliJ IDEA.
  * User: Wizard
- * Date: 2018-04-06
- * Time: 17:16
+ * Date: 2018-04-07
+ * Time: 18:56
  * ProjectName: ximcloudblog
  * To change this template use File | Settings | File Templates.
  * <p>
@@ -39,6 +37,21 @@ import java.util.Properties;
  * ////////////////////////////////////////////////////////////////////
  **/
 @Service
-public class MailService {
+public class AdminInfoService {
 
+    public Integer reflect(AdminInfo adminInfo) {
+        Integer integer = 0;
+        Class cls = adminInfo.getClass();
+        Field[] fields = cls.getDeclaredFields();
+        for(int i=0; i<fields.length; i++){
+            Field f = fields[i];
+            f.setAccessible(true);
+            try {
+                if (f.get(adminInfo)==null||f.get(adminInfo).equals("")) integer++;
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        return integer;
+    }
 }

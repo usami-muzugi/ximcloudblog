@@ -38,7 +38,7 @@ public class PasswordUtil {
      * 密码相同
      * @param password_1 password_1
      * @param password_2 password_2
-     * @return
+     * @return password_1 = password_2  return true
      */
     public static boolean compare(String password_1, String password_2) {
         if (password_1.equals(password_2)) {
@@ -48,6 +48,11 @@ public class PasswordUtil {
         }
     }
 
+    /**
+     *
+     * @param password password not null
+     * @return not null return true
+     */
     public static boolean nulled(String password) {
         if (password==null||password.equals("")) {
             return false;
@@ -58,7 +63,7 @@ public class PasswordUtil {
     /**
      *  密码大于6位
      * @param password password
-     * @return
+     * @return >= 6 return true
      */
     public static boolean exceed(String password) {
         if (password.length() >= 6) {

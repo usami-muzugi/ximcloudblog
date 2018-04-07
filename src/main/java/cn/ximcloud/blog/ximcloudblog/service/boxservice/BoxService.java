@@ -1,17 +1,17 @@
-package cn.ximcloud.blog.ximcloudblog.service.mailservice;
+package cn.ximcloud.blog.ximcloudblog.service.boxservice;
+
+import cn.ximcloud.blog.ximcloudblog.domain.Admin;
+import cn.ximcloud.blog.ximcloudblog.domain.AdminInfo;
+import cn.ximcloud.blog.ximcloudblog.service.adminservice.AdminInfoService;
+import cn.ximcloud.blog.ximcloudblog.service.adminservice.AdminService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import java.util.Date;
-import java.util.Properties;
 /**
  * Created by IntelliJ IDEA.
  * User: Wizard
- * Date: 2018-04-06
- * Time: 17:16
+ * Date: 2018-04-07
+ * Time: 22:16
  * ProjectName: ximcloudblog
  * To change this template use File | Settings | File Templates.
  * <p>
@@ -39,6 +39,18 @@ import java.util.Properties;
  * ////////////////////////////////////////////////////////////////////
  **/
 @Service
-public class MailService {
+public class BoxService {
 
+    @Autowired
+    AdminInfoService adminInfoService;
+
+    @Autowired
+    AdminService adminService;
+
+    public BoxService() {
+    }
+
+    public Integer getRrofileSettingsBox(Admin admin, AdminInfo adminInfo) {
+        return  adminInfoService.reflect(adminInfo) + adminService.adminIsNull(admin);
+    }
 }
