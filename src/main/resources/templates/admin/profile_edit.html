@@ -60,25 +60,6 @@
                             </div>
                         </div>
                         <!-- END Basic Info -->
-
-                        <!-- Stats -->
-                        <div class="block-content text-center">
-                            <div class="row items-push text-uppercase">
-                                <!--/*@thymesVar id="msg" type="cn.ximcloud.blog.ximcloudblog.controller.AdminController"*/-->
-                                <div class="row" th:if="${msg} ne null">
-                                    <div class="col-sm-6 col-lg-3 col-lg-offset-12">
-                                        <!-- Warning Alert -->
-                                        <div class="alert alert-warning alert-dismissable">
-                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                            <h3 class="font-w300 push-15">Attention!</h3>
-                                            <p th:text="${'有'+msg+' 项信息未填写！'}"></p>
-                                        </div>
-                                        <!-- END Warning Alert -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- END Stats -->
                     </div>
                     <!-- END User Header -->
 
