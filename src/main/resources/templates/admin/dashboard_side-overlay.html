@@ -4,7 +4,7 @@
 <html class="no-focus" lang="en" xmlns:th="http://www.thymeleaf.org"> <!--<![endif]-->
 
 <!-- Side Overlay-->
-<aside id="side-overlay" th:fragment="side-overlay">
+<aside id="side-overlay" th:fragment="side-overlay(admin)">
     <!-- Side Overlay Scroll Container -->
     <div id="side-overlay-scroll">
         <!-- Side Header -->
@@ -15,7 +15,7 @@
             </button>
             <span>
                 <img class="img-avatar img-avatar32" th:src="@{/assets/img/avatars/avatar10.jpg}" alt="">
-                <span class="font-w600 push-10-l">Ryan Hall</span>
+                <span class="font-w600 push-10-l" th:text="${admin}">Ryan Hall</span>
             </span>
         </div>
         <!-- END Side Header -->
@@ -120,7 +120,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="base_pages_profile.html">
+                                        <a href="base_pages_profile.html" th:text="${admin}">
                                             <img class="img-avatar" th:src="@{/assets/img/avatars/avatar6.jpg}" alt="">
                                             <i class="fa fa-circle text-warning"></i> Ryan Hall
                                             <div class="font-w400 text-muted"><small>Graphic Designer</small></div>

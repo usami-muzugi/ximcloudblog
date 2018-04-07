@@ -62,37 +62,8 @@ public class AdminService {
     @Autowired
     private AdminInfoRepository adminInfoRepository;
 
-    /** password Page
-     * @param httpSession
-     * @param profile_password
-     * @param profile_password_new
-     * @param profile_password_new_confirm
-     * @return
-     */
-    public String adminProfileUpdate(HttpSession httpSession, HttpServletRequest httpServletRequest, String profile_password, String profile_password_new, String profile_password_new_confirm) {
-        Admin admin = (Admin) httpSession.getAttribute("admin_session");
-        String string;
-        if ((string = PasswordUtil.passwordTest(profile_password_new, profile_password_new_confirm)) == null) {
-            //通过passwordTest
-            if (PasswordUtil.compare(admin.getPassword(), EncryptUtil.md5Password(profile_password))) {
-                admin.setPassword(EncryptUtil.md5Password(profile_password_new));
-                adminRepository.save(admin);
-                httpServletRequest.getSession().setAttribute("admin_session", null);
-            } else return "当前密码不正确！";
-        }
-        return string;
-    }
 
-    /**
-     *  Personal Page
-     * @param httpSession httpSession
-     * @param profile_name profile_name
-     * @param profile_firstname profile_firstname
-     * @param profile_lastname profile_lastname
-     * @param profile_bio profile_bio
-     * @param profile_city profile_city
-     * @param profile_age profile_age
-     */
+
         public void adminProfileUpdate(HttpSession httpSession,  String profile_name,
                 String profile_job,  String profile_firstname,
                                        String profile_lastname, String profile_bio, String profile_city, Integer profile_age) {
@@ -113,7 +84,10 @@ public class AdminService {
         adminInfoRepository.save(adminInfo);
     }
 
-
+    /**
+     *  admin事务更新
+     * @param id admin ID
+     */
     public void adminLoginEventUpdate(Integer id) {
         //admin update
         Admin admin = adminRepository.findAdminById(id);
@@ -196,7 +170,7 @@ public class AdminService {
 
             //用户设置
             Admin admin = new Admin();
-            admin.setAdminName(register_email);
+//            admin.setAdminName(register_email);
             admin.setEmail(register_email);  //emailutil
             admin.setPassword(EncryptUtil.md5Password(register_password)); //password 密码加密
             admin.setUuid(UuidUtil.getUUID());  //uuid
