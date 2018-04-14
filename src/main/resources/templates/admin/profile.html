@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--[if IE 9]>         <html class="ie9 no-focus" lang="en" xmlns:th="http://www.thymeleaf.org"> <![endif]-->
 <!--[if gt IE 9]><!--> <html class="no-focus" lang="en" xmlns:th="http://www.thymeleaf.org"> <!--<![endif]-->
-<head th:include="/admin/header :: header('Profile')"></head>
+<head th:include="admin/header :: header('Profile')"></head>
 
 <body>
         <!-- Page Container -->
@@ -25,17 +25,17 @@
         -->
         <div id="page-container" class="sidebar-l sidebar-o side-scroll header-navbar-fixed">
             <!-- Side Overlay-->
-            <!--/*@thymesVar id="admin" type="cn.ximcloud.blog.ximcloudblog.domain.Admin"*/-->
-            <aside id="side-overlay" th:include="/admin/dashboard_side-overlay :: side-overlay(${admin.getAdminName()})"></aside>
+            <!--/*@thymesVar id="admincontroller" type="cn.ximcloud.blog.ximcloudblog.domain.Admin"*/-->
+            <aside id="side-overlay" th:include="admin/dashboard_side-overlay :: side-overlay(${admin.getAdminName()})"></aside>
             <!-- END Side Overlay -->
 
             <!-- Sidebar -->
-            <nav th:include="/admin/dashboard_sidebar :: nav" th:id="sidebar"></nav>
+            <nav th:include="admin/dashboard_sidebar :: nav" th:id="sidebar"></nav>
             <!-- END Sidebar -->
 
             <!-- Header -->
-            <!--/*@thymesVar id="profilesettings" type="cn.ximcloud.blog.ximcloudblog.controller.AdminController"*/-->
-            <header id="header-navbar" class="content-mini content-mini-full" th:include="/admin/dashboard_header :: header(${1},${profilesettings})"></header>
+            <!--/*@thymesVar id="profilesettings" type="cn.ximcloud.blog.ximcloudblog.controller.admincontroller.AdminController"*/-->
+            <header id="header-navbar" class="content-mini content-mini-full" th:include="admin/dashboard_header :: header(${1},${profilesettings})"></header>
             <!-- END Header -->
 
             <!-- Main Container -->
@@ -46,12 +46,12 @@
                     <div class="block">
                         <!-- Basic Info -->
                         <div class="bg-image" style="background-image: url('/assets/img/photos/photo6@2x.jpg');">
-                            <div class="block-content bg-primary-dark-op text-center overflow-hidden">
+                            <div class="block-content bg-primary-dark-op text-center overflow-hidden" style="background-color: rgba(62, 74, 89, 0.15)">
                                 <div class="push-30-t push animated fadeInDown">
                                     <img class="img-avatar img-avatar96 img-avatar-thumb" th:src="@{/assets/img/avatars/avatar4.jpg}" alt="">
                                 </div>
                                 <div class="push-30 animated fadeInUp">
-                                    <!--/*@thymesVar id="admin" type="cn.ximcloud.blog.ximcloudblog.domain.Admin"*/-->
+                                    <!--/*@thymesVar id="admincontroller" type="cn.ximcloud.blog.ximcloudblog.domain.Admin"*/-->
                                     <h2 class="h4 font-w600 text-white push-5" th:text="${admin.getAdminName()}"></h2>
                                     <!--/*@thymesVar id="admin_info" type="cn.ximcloud.blog.ximcloudblog.domain.AdminInfo"*/-->
                                     <h3 class="h5 text-gray" th:text="${admin_info.getAdmin_job()}"></h3>
@@ -493,9 +493,9 @@
         <!-- END Page Container -->
 
         <!-- Apps Modal -->
-        <div class="modal fade" id="apps-modal" tabindex="-1" role="dialog" aria-hidden="true" th:include="/admin/dashboard_Apps :: apps"></div>
+        <div class="modal fade" id="apps-modal" tabindex="-1" role="dialog" aria-hidden="true" th:include="admin/dashboard_Apps :: apps"></div>
         <!-- END Apps Modal -->
 
-        <div th:include="/admin/footer :: footer"></div>
+        <div th:include="admin/footer :: footer"></div>
     </body>
 </html>

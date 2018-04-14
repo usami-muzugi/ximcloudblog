@@ -67,7 +67,7 @@ public class AdminService {
         public void adminProfileUpdate(HttpSession httpSession,  String profile_name,
                 String profile_job,  String profile_firstname,
                                        String profile_lastname, String profile_bio, String profile_city, Integer profile_age) {
-        //admin set
+        //admincontroller set
         Admin admin = (Admin) httpSession.getAttribute("admin_session");
         admin.setAdminName(profile_name);
 
@@ -86,10 +86,10 @@ public class AdminService {
 
     /**
      *  admin事务更新
-     * @param id admin ID
+     * @param id admincontroller ID
      */
     public void adminLoginEventUpdate(Integer id) {
-        //admin update
+        //admincontroller update
         Admin admin = adminRepository.findAdminById(id);
         String string = null;
         try {
@@ -170,13 +170,13 @@ public class AdminService {
 
             //用户设置
             Admin admin = new Admin();
-//            admin.setAdminName(register_email);
+//            admincontroller.setAdminName(register_email);
             admin.setEmail(register_email);  //emailutil
             admin.setPassword(EncryptUtil.md5Password(register_password)); //password 密码加密
             admin.setUuid(UuidUtil.getUUID());  //uuid
             adminRepository.save(admin);  //save
 
-            //BUG admin id =1,admininfo id =2 这种
+            //BUG admincontroller id =1,admininfo id =2 这种
             //2018.4.7 这个问题莫名其妙解决了...
 
 

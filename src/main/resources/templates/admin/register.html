@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--[if IE 9]>         <html class="ie9 no-focus" lang="en" xmlns:th="http://www.thymeleaf.org"> <![endif]-->
 <!--[if gt IE 9]><!--> <html class="no-focus" lang="en" xmlns:th="http://www.thymeleaf.org"> <!--<![endif]-->
-<head th:include="/admin/header :: header('Register')"></head>
+<head th:include="admin/header :: header('Register')"></head>
 
 <body>
 <!-- Register Content -->
@@ -126,7 +126,7 @@
 <!-- END Terms Modal -->
 
 
-<div th:include="/admin/footer :: footer"></div>
+<div th:include="admin/footer :: footer"></div>
 
 <!-- Page JS Plugins -->
 <script th:src="@{/assets/js/plugins/jquery-validation/jquery.validate.min.js}"></script>

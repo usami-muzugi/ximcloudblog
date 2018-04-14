@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--[if IE 9]>         <html class="ie9 no-focus" lang="en" xmlns:th="http://www.thymeleaf.org"> <![endif]-->
 <!--[if gt IE 9]><!--> <html class="no-focus" lang="en" xmlns:th="http://www.thymeleaf.org"> <!--<![endif]-->
-<head th:include="/admin/header :: header('Dashboard')">
+<head th:include="admin/header :: header('Dashboard')">
 
     <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
     <!-- <link rel="stylesheet" id="css-theme" href="assets/css/themes/flat.min.css"> -->
@@ -35,17 +35,17 @@
 -->
 <div id="page-container" class="sidebar-l sidebar-o side-scroll header-navbar-fixed">
     <!-- Side Overlay-->
-    <!--/*@thymesVar id="admin" type="cn.ximcloud.blog.ximcloudblog.domain.Admin"*/-->
-    <aside id="side-overlay" th:include="/admin/dashboard_side-overlay :: side-overlay(${admin.getAdminName()})"></aside>
+    <!--/*@thymesVar id="admincontroller" type="cn.ximcloud.blog.ximcloudblog.domain.Admin"*/-->
+    <aside id="side-overlay" th:include="admin/dashboard_side-overlay :: side-overlay(${admin.getAdminName()})"></aside>
     <!-- END Side Overlay -->
 
     <!-- Sidebar -->
-    <nav th:include="/admin/dashboard_sidebar :: nav" th:id="sidebar"></nav>
+    <nav th:include="admin/dashboard_sidebar :: nav" th:id="sidebar"></nav>
     <!-- END Sidebar -->
 
     <!-- Header -->
-    <!--/*@thymesVar id="profilesettings" type="cn.ximcloud.blog.ximcloudblog.controller.AdminController"*/-->
-    <header id="header-navbar" class="content-mini content-mini-full" th:include="/admin/dashboard_header :: header(${1},${profilesettings})"></header>
+    <!--/*@thymesVar id="profilesettings" type="cn.ximcloud.blog.ximcloudblog.controller.admincontroller.AdminController"*/-->
+    <header id="header-navbar" class="content-mini content-mini-full" th:include="admin/dashboard_header :: header(${1},${profilesettings})"></header>
     <!-- END Header -->
 
 
@@ -55,7 +55,7 @@
         <div class="content bg-image overflow-hidden" style="background-image: url('../assets/img/photos/photo3@2x.jpg');">
             <div class="push-50-t push-15">
                 <h1 class="h2 text-white animated zoomIn" th:text="Dashboard"></h1>
-                <!--/*@thymesVar id="admin" type="cn.ximcloud.blog.ximcloudblog.domain.Admin"*/-->
+                <!--/*@thymesVar id="admincontroller" type="cn.ximcloud.blog.ximcloudblog.domain.Admin"*/-->
                 <h2 class="h5 text-white-op animated zoomIn" th:text="'Welcome, '+${admin.getAdminName()}"> </h2>
             </div>
         </div>
@@ -539,16 +539,16 @@
     </main>
     <!-- END Main Container -->
 
-    <footer id="page-footer" class="content-mini content-mini-full font-s12 bg-gray-lighter clearfix" th:include="/admin/dashboard_footer :: footer"></footer>
+    <footer id="page-footer" class="content-mini content-mini-full font-s12 bg-gray-lighter clearfix" th:include="admin/dashboard_footer :: footer"></footer>
 
 </div>
 <!-- END Page Container -->
 
 <!-- Apps Modal -->
-<div class="modal fade" id="apps-modal" tabindex="-1" role="dialog" aria-hidden="true" th:include="/admin/dashboard_Apps :: apps"></div>
+<div class="modal fade" id="apps-modal" tabindex="-1" role="dialog" aria-hidden="true" th:include="admin/dashboard_Apps :: apps"></div>
 <!-- END Apps Modal -->
 
-<div th:include="/admin/footer :: footer"></div>
+<div th:include="admin/footer :: footer"></div>
 
 <!-- Page Plugins -->
 <script th:src="@{/assets/js/plugins/slick/slick.min.js}"></script>
