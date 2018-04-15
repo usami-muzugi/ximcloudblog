@@ -1,16 +1,27 @@
-package cn.ximcloud.blog.ximcloudblog.aspect;
+package cn.ximcloud.blog.ximcloudblog.controller.initcontroller;
 
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.springframework.stereotype.Component;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.core.AutoConfigureCache;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import static org.junit.Assert.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * Created by IntelliJ IDEA.
- * User: wzard
- * Date: 2018-04-09
- * Time: 10:18
+ * User: Wizard
+ * Date: 2018-04-14
+ * Time: 22:51
  * ProjectName: ximcloudblog
- * To change this template use File | Settings | Editor | File and Code Templates.
+ * To change this template use File | Settings | File Templates.
+ * <p>
  * ////////////////////////////////////////////////////////////////////
  * //                          _ooOoo_                               //
  * //                         o8888888o                              //
@@ -31,15 +42,19 @@ import org.springframework.stereotype.Component;
  * //      ========`-.____`-.___\_____/___.-`____.-'========         //
  * //                           `=---='                              //
  * //      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        //
- * //         佛祖保佑        永无BUG      永不修改                  //
+ * //         佛祖保佑          永无BUG     永不修改                  //
  * ////////////////////////////////////////////////////////////////////
  **/
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@AutoConfigureMockMvc
+public class initcontrollerTest {
 
-@Aspect
-@Component
-public class HttpAspect {
-    @Before("execution()")
-    public void log() {
+    @Autowired
+    private MockMvc mockMvc;
 
+    @Test
+    public void init() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
     }
 }

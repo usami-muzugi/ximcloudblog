@@ -1,17 +1,13 @@
-package cn.ximcloud.blog.ximcloudblog.service.boxservice;
+package cn.ximcloud.blog.ximcloudblog.repository;
 
-import cn.ximcloud.blog.ximcloudblog.domain.Admin;
-import cn.ximcloud.blog.ximcloudblog.domain.AdminInfo;
-import cn.ximcloud.blog.ximcloudblog.service.adminservice.AdminInfoService;
-import cn.ximcloud.blog.ximcloudblog.service.adminservice.AdminService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import cn.ximcloud.blog.ximcloudblog.domain.Authority;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * Created by IntelliJ IDEA.
  * User: Wizard
- * Date: 2018-04-07
- * Time: 22:16
+ * Date: 2018-04-15
+ * Time: 23:14
  * ProjectName: ximcloudblog
  * To change this template use File | Settings | File Templates.
  * <p>
@@ -38,19 +34,6 @@ import org.springframework.stereotype.Service;
  * //         佛祖保佑          永无BUG     永不修改                  //
  * ////////////////////////////////////////////////////////////////////
  **/
-@Service
-public class BoxService {
+public interface AuthorityRepository extends JpaRepository<Authority, Integer> {
 
-    @Autowired
-    AdminInfoService adminInfoService;
-
-    @Autowired
-    AdminService adminService;
-
-    public BoxService() {
-    }
-
-    public Integer getRrofileSettingsBox(Admin admin, AdminInfo adminInfo) {
-        return  adminInfoService.reflect(adminInfo) + adminService.adminIsNull(admin);
-    }
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--[if IE 9]>         <html class="ie9 no-focus" lang="en" xmlns:th="http://www.thymeleaf.org"> <![endif]-->
 <!--[if gt IE 9]><!--> <html class="no-focus" lang="en" xmlns:th="http://www.thymeleaf.org"> <!--<![endif]-->
-<head th:include="admin/header :: header('Edit')"></head>
+<head th:include="/admin/header :: header('Edit')"></head>
 
 <link rel="stylesheet" th:href="@{/assets/js/plugins/select2/select2.min.css}">
 <link rel="stylesheet" th:href="@{/assets/js/plugins/select2/select2-bootstrap.min.css}">
@@ -29,17 +29,17 @@
         -->
         <div id="page-container" class="sidebar-l sidebar-o side-scroll header-navbar-fixed">
             <!-- Side Overlay-->
-            <!--/*@thymesVar id="admincontroller" type="cn.ximcloud.blog.ximcloudblog.domain.Admin"*/-->
-            <aside id="side-overlay" th:include="admin/dashboard_side-overlay :: side-overlay(${admin.getAdminName()})"></aside>
+            <!--/*@thymesVar id="admin" type="cn.ximcloud.blog.ximcloudblog.domain.Admin"*/-->
+            <aside id="side-overlay" th:include="/admin/dashboard_side-overlay :: side-overlay(${admin.getAdminName()})"></aside>
             <!-- END Side Overlay -->
 
             <!-- Sidebar -->
-            <nav th:include="admin/dashboard_sidebar :: nav" th:id="sidebar"></nav>
+            <nav th:include="/admin/dashboard_sidebar :: nav" th:id="sidebar"></nav>
             <!-- END Sidebar-->
 
             <!-- Header -->
-            <!--/*@thymesVar id="profilesettings" type="cn.ximcloud.blog.ximcloudblog.controller.admincontroller.AdminController"*/-->
-            <header id="header-navbar" class="content-mini content-mini-full" th:include="admin/dashboard_header :: header(${1},${profilesettings})"></header>
+            <!--/*@thymesVar id="profilesettings" type="cn.ximcloud.blog.ximcloudblog.controller.AdminController"*/-->
+            <header id="header-navbar" class="content-mini content-mini-full" th:include="/admin/dashboard_header :: header(${1},${profilesettings})"></header>
             <!-- END Header -->
 
             <!-- Main Container -->
@@ -199,7 +199,7 @@
         <!-- END Apps Modal -->
 
         <!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
-        <div th:include="admin/footer :: footer"></div>
+        <div th:include="/admin/footer :: footer"></div>
 
         <!-- Page JS Plugins -->
         <script th:src="@{/assets/js/plugins/select2/select2.full.min.js}"></script>

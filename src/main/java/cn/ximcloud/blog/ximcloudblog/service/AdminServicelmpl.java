@@ -1,15 +1,15 @@
-package cn.ximcloud.blog.ximcloudblog.lang;
+package cn.ximcloud.blog.ximcloudblog.service;
 
-import java.util.ArrayList;
-import java.util.List;
+import cn.ximcloud.blog.ximcloudblog.domain.Admin;
 
 /**
  * Created by IntelliJ IDEA.
- * User: wzard
- * Date: 2018-04-03
- * Time: 16:44
+ * User: Wizard
+ * Date: 2018-04-15
+ * Time: 23:35
  * ProjectName: ximcloudblog
- * To change this template use File | Settings | Editor | File and Code Templates.
+ * To change this template use File | Settings | File Templates.
+ * <p>
  * ////////////////////////////////////////////////////////////////////
  * //                          _ooOoo_                               //
  * //                         o8888888o                              //
@@ -30,29 +30,13 @@ import java.util.List;
  * //      ========`-.____`-.___\_____/___.-`____.-'========         //
  * //                           `=---='                              //
  * //      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        //
- * //         佛祖保佑        永无BUG      永不修改                  //
+ * //         佛祖保佑          永无BUG     永不修改                  //
  * ////////////////////////////////////////////////////////////////////
  **/
+public class AdminServicelmpl implements AdminService {
 
-public class Chinese {
-
-    private static List<String> userList = new ArrayList<>();
-
-    public Chinese(){}
-
-    static {
-        userList.add(0,"XIMCloud");
-        userList.add(1, userList.get(0) + " Blog"); //Project name
-        userList.add(2, "Home");
-        userList.add(3, "项目");
-        userList.add(4, "服务");
-        userList.add(5, "下载");
-        userList.add(6, "关于" + userList.get(0));
-        userList.add(7, "联系" + userList.get(0));
-
-    }
-
-    public static List<String> getUserList() {
-        return userList;
+    @Override
+    public Admin getAdminById(Integer admin_id) {
+        return null;
     }
 }

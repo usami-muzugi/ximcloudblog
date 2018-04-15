@@ -39,172 +39,171 @@ public class AdminInfo implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer admin_id;
+    private Integer adminInfo_id;
 
-    private String admin_icon;
+    private String adminInfo_icon;
 
-    private String firstName;
+    private String adminInfo_firstName;
 
-    private String lastName;
+    private String adminInfo_lastName;
 
-    private String admin_job;
+    private String adminInfo_job;
 
-    private String bio;
+    private String adminInfo_bio;
 
-    private String city;
+    private String adminInfo_city;
 
-    private Integer age;
+    private Integer adminInfo_age;
 
-    private Long registerTime;
+    private Long adminInfo_registerTime;
 
-    private Long lastLoginTime;
+    private Long adminInfo_lastLoginTime;
+
+    private Long adminInfo_lastLoginIP;
 
     @Column(columnDefinition = "longtext")
-    private String loginIPList;
+    private String adminInfo_loginIPList;
 
-    private boolean adminAccountAvailableStatus;
-
-    private String registerIP;
+    private String adminInfo_registerIP;
 
     public AdminInfo() {
-    }
-
-
-    public AdminInfo(String admin_icon, String firstName, String lastName, String admin_job, String bio, String city, Integer age, Long registerTime, Long lastLoginTime, String loginIPList, boolean adminAccountAvailableStatus, String registerIP) {
-        this.admin_icon = admin_icon;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.admin_job = admin_job;
-        this.bio = bio;
-        this.city = city;
-        this.age = age;
-        this.registerTime = registerTime;
-        this.lastLoginTime = lastLoginTime;
-        this.loginIPList = loginIPList;
-        this.adminAccountAvailableStatus = adminAccountAvailableStatus;
-        this.registerIP = registerIP;
     }
 
     @Override
     public String toString() {
         return "AdminInfo{" +
-                "admin_id=" + admin_id +
-                ", admin_icon='" + admin_icon + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", admin_job='" + admin_job + '\'' +
-                ", bio='" + bio + '\'' +
-                ", city='" + city + '\'' +
-                ", age='" + age + '\'' +
-                ", registerTime=" + registerTime +
-                ", lastLoginTime=" + lastLoginTime +
-                ", loginIPList='" + loginIPList + '\'' +
-                ", adminAccountAvailableStatus=" + adminAccountAvailableStatus +
-                ", registerIP='" + registerIP + '\'' +
+                "adminInfo_id=" + adminInfo_id +
+                ", adminInfo_icon='" + adminInfo_icon + '\'' +
+                ", adminInfo_firstName='" + adminInfo_firstName + '\'' +
+                ", adminInfo_lastName='" + adminInfo_lastName + '\'' +
+                ", adminInfo_job='" + adminInfo_job + '\'' +
+                ", adminInfo_bio='" + adminInfo_bio + '\'' +
+                ", adminInfo_city='" + adminInfo_city + '\'' +
+                ", adminInfo_age=" + adminInfo_age +
+                ", adminInfo_registerTime=" + adminInfo_registerTime +
+                ", adminInfo_lastLoginTime=" + adminInfo_lastLoginTime +
+                ", adminInfo_lastLoginIP=" + adminInfo_lastLoginIP +
+                ", adminInfo_loginIPList='" + adminInfo_loginIPList + '\'' +
+                ", adminInfo_registerIP='" + adminInfo_registerIP + '\'' +
                 '}';
     }
 
-    public Integer getAdmin_id() {
-        return admin_id;
+    public Integer getAdminInfo_id() {
+        return adminInfo_id;
     }
 
-    public void setAdmin_id(Integer admin_id) {
-        this.admin_id = admin_id;
+    public void setAdminInfo_id(Integer adminInfo_id) {
+        this.adminInfo_id = adminInfo_id;
     }
 
-    public String getAdmin_icon() {
-        return admin_icon;
+    public String getAdminInfo_icon() {
+        return adminInfo_icon;
     }
 
-    public void setAdmin_icon(String admin_icon) {
-        this.admin_icon = admin_icon;
+    public void setAdminInfo_icon(String adminInfo_icon) {
+        this.adminInfo_icon = adminInfo_icon;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getAdminInfo_firstName() {
+        return adminInfo_firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setAdminInfo_firstName(String adminInfo_firstName) {
+        this.adminInfo_firstName = adminInfo_firstName;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getAdminInfo_lastName() {
+        return adminInfo_lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setAdminInfo_lastName(String adminInfo_lastName) {
+        this.adminInfo_lastName = adminInfo_lastName;
     }
 
-    public String getAdmin_job() {
-        return admin_job;
+    public String getAdminInfo_job() {
+        return adminInfo_job;
     }
 
-    public void setAdmin_job(String admin_job) {
-        this.admin_job = admin_job;
+    public void setAdminInfo_job(String adminInfo_job) {
+        this.adminInfo_job = adminInfo_job;
     }
 
-    public String getBio() {
-        return bio;
+    public String getAdminInfo_bio() {
+        return adminInfo_bio;
     }
 
-    public void setBio(String bio) {
-        this.bio = bio;
+    public void setAdminInfo_bio(String adminInfo_bio) {
+        this.adminInfo_bio = adminInfo_bio;
     }
 
-    public String getCity() {
-        return city;
+    public String getAdminInfo_city() {
+        return adminInfo_city;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setAdminInfo_city(String adminInfo_city) {
+        this.adminInfo_city = adminInfo_city;
     }
 
-    public Integer getAge() {
-        return age;
+    public Integer getAdminInfo_age() {
+        return adminInfo_age;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setAdminInfo_age(Integer adminInfo_age) {
+        this.adminInfo_age = adminInfo_age;
     }
 
-    public Long getRegisterTime() {
-        return registerTime;
+    public Long getAdminInfo_registerTime() {
+        return adminInfo_registerTime;
     }
 
-    public void setRegisterTime(Long registerTime) {
-        this.registerTime = registerTime;
+    public void setAdminInfo_registerTime(Long adminInfo_registerTime) {
+        this.adminInfo_registerTime = adminInfo_registerTime;
     }
 
-    public Long getLastLoginTime() {
-        return lastLoginTime;
+    public Long getAdminInfo_lastLoginTime() {
+        return adminInfo_lastLoginTime;
     }
 
-    public void setLastLoginTime(Long lastLoginTime) {
-        this.lastLoginTime = lastLoginTime;
+    public void setAdminInfo_lastLoginTime(Long adminInfo_lastLoginTime) {
+        this.adminInfo_lastLoginTime = adminInfo_lastLoginTime;
     }
 
-    public String getLoginIPList() {
-        return loginIPList;
+    public Long getAdminInfo_lastLoginIP() {
+        return adminInfo_lastLoginIP;
     }
 
-    public void setLoginIPList(String loginIPList) {
-        this.loginIPList = loginIPList;
+    public void setAdminInfo_lastLoginIP(Long adminInfo_lastLoginIP) {
+        this.adminInfo_lastLoginIP = adminInfo_lastLoginIP;
     }
 
-    public boolean isAdminAccountAvailableStatus() {
-        return adminAccountAvailableStatus;
+    public String getAdminInfo_loginIPList() {
+        return adminInfo_loginIPList;
     }
 
-    public void setAdminAccountAvailableStatus(boolean adminAccountAvailableStatus) {
-        this.adminAccountAvailableStatus = adminAccountAvailableStatus;
+    public void setAdminInfo_loginIPList(String adminInfo_loginIPList) {
+        this.adminInfo_loginIPList = adminInfo_loginIPList;
     }
 
-    public String getRegisterIP() {
-        return registerIP;
+    public String getAdminInfo_registerIP() {
+        return adminInfo_registerIP;
     }
 
-    public void setRegisterIP(String registerIP) {
-        this.registerIP = registerIP;
+    public void setAdminInfo_registerIP(String adminInfo_registerIP) {
+        this.adminInfo_registerIP = adminInfo_registerIP;
+    }
+
+    public AdminInfo(String adminInfo_icon, String adminInfo_firstName, String adminInfo_lastName, String adminInfo_job, String adminInfo_bio, String adminInfo_city, Integer adminInfo_age, Long adminInfo_registerTime, Long adminInfo_lastLoginTime, Long adminInfo_lastLoginIP, String adminInfo_loginIPList, String adminInfo_registerIP) {
+        this.adminInfo_icon = adminInfo_icon;
+        this.adminInfo_firstName = adminInfo_firstName;
+        this.adminInfo_lastName = adminInfo_lastName;
+        this.adminInfo_job = adminInfo_job;
+        this.adminInfo_bio = adminInfo_bio;
+        this.adminInfo_city = adminInfo_city;
+        this.adminInfo_age = adminInfo_age;
+        this.adminInfo_registerTime = adminInfo_registerTime;
+        this.adminInfo_lastLoginTime = adminInfo_lastLoginTime;
+        this.adminInfo_lastLoginIP = adminInfo_lastLoginIP;
+        this.adminInfo_loginIPList = adminInfo_loginIPList;
+        this.adminInfo_registerIP = adminInfo_registerIP;
     }
 }

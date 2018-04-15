@@ -1,15 +1,13 @@
-package cn.ximcloud.blog.ximcloudblog.service.adminservice;
+package cn.ximcloud.blog.ximcloudblog.service;
 
-import cn.ximcloud.blog.ximcloudblog.domain.AdminInfo;
+import cn.ximcloud.blog.ximcloudblog.domain.Admin;
 import org.springframework.stereotype.Service;
-
-import java.lang.reflect.Field;
 
 /**
  * Created by IntelliJ IDEA.
  * User: Wizard
- * Date: 2018-04-07
- * Time: 18:56
+ * Date: 2018-04-15
+ * Time: 23:30
  * ProjectName: ximcloudblog
  * To change this template use File | Settings | File Templates.
  * <p>
@@ -36,22 +34,17 @@ import java.lang.reflect.Field;
  * //         佛祖保佑          永无BUG     永不修改                  //
  * ////////////////////////////////////////////////////////////////////
  **/
-@Service
-public class AdminInfoService {
 
-    public Integer reflect(AdminInfo adminInfo) {
-        Integer integer = 0;
-        Class cls = adminInfo.getClass();
-        Field[] fields = cls.getDeclaredFields();
-        for(int i=0; i<fields.length; i++){
-            Field f = fields[i];
-            f.setAccessible(true);
-            try {
-                if (f.get(adminInfo)==null||f.get(adminInfo).equals("")) integer++;
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
-        return integer;
-    }
+/**
+ * Admin 服务接口
+ */
+public interface AdminService {
+
+
+    /**
+     *
+     * @param admin_id
+     * @return
+     */
+    Admin getAdminById(Integer admin_id);
 }

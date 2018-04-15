@@ -50,19 +50,22 @@ public class WebSiteConfig {
     private String emailPassword;
     private String emailSMTPHost;
     private String emailSMTPPort;
+    private String webuuid;
 
-    public WebSiteConfig() {
-    }
-
-    public WebSiteConfig(String webSiteName, String webSiteDomain, String webSiteInco, Boolean webSiteSSL, String emailAccount, String emailPassword, String emailSMTPHost, String emailSMTPPort) {
-        this.webSiteName = webSiteName;
-        this.webSiteDomain = webSiteDomain;
-        this.webSiteInco = webSiteInco;
-        this.webSiteSSL = webSiteSSL;
-        this.emailAccount = emailAccount;
-        this.emailPassword = emailPassword;
-        this.emailSMTPHost = emailSMTPHost;
-        this.emailSMTPPort = emailSMTPPort;
+    @Override
+    public String toString() {
+        return "WebSiteConfig{" +
+                "webSiteId=" + webSiteId +
+                ", webSiteName='" + webSiteName + '\'' +
+                ", webSiteDomain='" + webSiteDomain + '\'' +
+                ", webSiteInco='" + webSiteInco + '\'' +
+                ", webSiteSSL=" + webSiteSSL +
+                ", emailAccount='" + emailAccount + '\'' +
+                ", emailPassword='" + emailPassword + '\'' +
+                ", emailSMTPHost='" + emailSMTPHost + '\'' +
+                ", emailSMTPPort='" + emailSMTPPort + '\'' +
+                ", webuuid='" + webuuid + '\'' +
+                '}';
     }
 
     public Integer getWebSiteId() {
@@ -137,18 +140,23 @@ public class WebSiteConfig {
         this.emailSMTPPort = emailSMTPPort;
     }
 
-    @Override
-    public String toString() {
-        return "WebSiteConfig{" +
-                "webSiteId=" + webSiteId +
-                ", webSiteName='" + webSiteName + '\'' +
-                ", webSiteDomain='" + webSiteDomain + '\'' +
-                ", webSiteInco='" + webSiteInco + '\'' +
-                ", webSiteSSL=" + webSiteSSL +
-                ", emailAccount='" + emailAccount + '\'' +
-                ", emailPassword='" + emailPassword + '\'' +
-                ", emailSMTPHost='" + emailSMTPHost + '\'' +
-                ", emailSMTPPort='" + emailSMTPPort + '\'' +
-                '}';
+    public String getWebuuid() {
+        return webuuid;
+    }
+
+    public void setWebuuid(String webuuid) {
+        this.webuuid = webuuid;
+    }
+
+    public WebSiteConfig(String webSiteName, String webSiteDomain, String webSiteInco, Boolean webSiteSSL, String emailAccount, String emailPassword, String emailSMTPHost, String emailSMTPPort, String webuuid) {
+        this.webSiteName = webSiteName;
+        this.webSiteDomain = webSiteDomain;
+        this.webSiteInco = webSiteInco;
+        this.webSiteSSL = webSiteSSL;
+        this.emailAccount = emailAccount;
+        this.emailPassword = emailPassword;
+        this.emailSMTPHost = emailSMTPHost;
+        this.emailSMTPPort = emailSMTPPort;
+        this.webuuid = webuuid;
     }
 }
